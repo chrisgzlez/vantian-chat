@@ -43,4 +43,11 @@ Aplicación P2P empleando Java RMI
   - solicitante -> ref Usuario.user_name     
   - solicitado -> ref Usuario.user_name
   - activa -> 0 pendiente y 1 activa
-     
+
+## GUI
+![image](https://github.com/chrisgzlez/vantian-chat/assets/76858824/6ca9499d-4489-4dd2-a475-4f83ca9c7494)
+![image](https://github.com/chrisgzlez/vantian-chat/assets/76858824/7ca0e523-0156-4d86-be76-f753ebf8996a)
+![image](https://github.com/chrisgzlez/vantian-chat/assets/76858824/bfc165be-8d3d-4afc-957b-bd4b590f6952)
+
+
+
