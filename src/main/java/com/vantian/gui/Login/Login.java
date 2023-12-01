@@ -1,6 +1,7 @@
 package com.vantian.gui.Login;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.vantian.gui.manager.Manager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class Login extends JPanel {
 
         //placeholders para los campos
 
-        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT,"Introduzca su nombre de usurio");
+        username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT,"Introduzca su nombre de usuario");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT,"Introduzca su contraseña");
 
         JLabel labeltitle  = new JLabel("Welcome back!");
@@ -66,7 +67,7 @@ public class Login extends JPanel {
         //Accion que queramos hacer al llmar al register
         register.addActionListener(regbutton -> {
             //llamamos a la gui de register
-            System.out.println("Holaaa");
+            Manager.getInstance().mostrarRegister(new Register());
         });
         JLabel cuenta =new JLabel("No tienes una cuenta?");
         cuenta.putClientProperty(FlatClientProperties.STYLE, "" + "[light]foreground:darken(@foreground,30%);" + "[dark]foreground:lighten(@foreground,30%)" );
@@ -83,4 +84,5 @@ public class Login extends JPanel {
     private JPasswordField password;
     private JCheckBox rememberMe;
     private JButton login;
+
 }

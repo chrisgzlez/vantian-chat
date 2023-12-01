@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.vantian.gui.Login.Login;
+import com.vantian.gui.manager.Manager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class Application extends JFrame {
         setSize(new Dimension(1200,700));
         setLocationRelativeTo(null);
         setContentPane(new Login());
+        Manager.getInstance().iniciarAplicacion(this);
 
     }
 
