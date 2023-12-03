@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class PostgresConnection implements IDataBase{
+public class PostgresConnection implements IDataBaseConnection {
 
     private Connection conexion;
 

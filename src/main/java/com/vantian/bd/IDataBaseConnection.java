@@ -2,7 +2,7 @@ package com.vantian.bd;
 
 import java.sql.ResultSet;
 
-public interface IDataBase {
+public interface IDataBaseConnection {
 
     //Metodo para ejecutar consultas en PSQL
     ResultSet executeQuery(String consulta);
