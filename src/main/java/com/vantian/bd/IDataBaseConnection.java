@@ -8,5 +8,5 @@ public interface IDataBaseConnection {
     ResultSet executeQuery(String consulta);
 
     //Metodo para cerrar la conexión de forma segura
-    void cerrarConexion();
+    void closeConnection();
 }

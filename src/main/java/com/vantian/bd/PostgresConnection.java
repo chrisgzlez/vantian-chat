@@ -27,7 +27,7 @@ public class PostgresConnection implements IDataBaseConnection {
         }
     }
 
-    public void cerrarConexion() {
+    public void closeConnection() {
         try {
             if (conexion != null && !conexion.isClosed()) {
                 conexion.close();
