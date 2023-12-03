@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class DataBaseConexion implements IDataBase{
+public class PostgresConnection implements IDataBase{
 
     private Connection conexion;
 
-    public DataBaseConexion(String url, String user, String password) {
+    public PostgresConnection(String url, String user, String password) {
         try {
             this.conexion = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
@@ -51,7 +51,7 @@ public class DataBaseConexion implements IDataBase{
         String password = "vantian";
 
         // Crear una instancia de ConexionBD
-        DataBaseConexion conexionBD = new DataBaseConexion(url, user, password);
+        PostgresConnection conexionBD = new PostgresConnection(url, user, password);
 
         System.out.println("Conexion a la BD establecida...");
 
