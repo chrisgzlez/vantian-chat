@@ -48,29 +48,5 @@ public class PostgresConnection implements IDataBaseConnection {
             return null;
         }
     }
-
-    // Otros métodos relacionados con la base de datos
-
-    public static void main(String[] args) {
-        // Parámetros de conexión
-
-        //URL:jdbc:postgresql://tu_host:tu_puerto/tu_bd
-        String url = "jdbc:postgresql://localhost:5432/vantianchat";
-        String user = "vantian";
-        String password = "vantian";
-
-        // Crear una instancia de ConexionBD
-        PostgresConnection conexionBD = new PostgresConnection(url, user, password);
-
-        System.out.println("Conexion a la BD establecida...");
-
-        // Llamar a métodos relacionados con la base de datos
-        ResultSet resultadoConsulta = conexionBD.executeQuery("SELECT * FROM tu_tabla");
-
-        // Procesar el resultado o realizar otras operaciones
-
-        // Cerrar la conexión al finalizar
-        conexionBD.cerrarConexion();
-    }
 }
 
