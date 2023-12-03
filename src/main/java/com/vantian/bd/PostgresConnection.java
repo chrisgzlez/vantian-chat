@@ -9,10 +9,19 @@ import java.sql.ResultSet;
 public class PostgresConnection implements IDataBaseConnection {
 
     private Connection conexion;
+    private final String protocol = "jdbc:postgresql";
 
-    public PostgresConnection(String url, String user, String password) {
+    public PostgresConnection(String host, Integer port, String database, String user, String password) {
         try {
-            this.conexion = DriverManager.getConnection(url, user, password);
+            String connectionString = this.protocol + "://" + host + ":" + port + "/" + database;
+            this.conexion = DriverManager.getConnection(connectionString, user, password);
+        } catch (SQLException e) {
+            System.err.println("Error al conectar a la base de datos: " + e.getMessage());
+        }
+    }
+    public PostgresConnection(String connectionUrl, String user, String password) {
+        try {
+            this.conexion = DriverManager.getConnection(this.protocol + "://" + connectionUrl, user, password);
         } catch (SQLException e) {
             System.err.println("Error al conectar a la base de datos: " + e.getMessage());
         }
