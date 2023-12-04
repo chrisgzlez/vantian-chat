@@ -1,7 +1,7 @@
 package com.vantian.gui.Login;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.vantian.gui.manager.Manager;
+import com.vantian.gui.menu.Menu;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -84,7 +84,7 @@ public class Register extends JPanel {
         //Accion que queramos hacer al llmar al register
         login.addActionListener(regbutton -> {
             //llamamos a la gui de register
-            Manager.getInstance().mostrarRegister(new Login());
+            Menu.menu.mostrarRegister(new Login());
         });
         JLabel cuenta =new JLabel("Ya registrado?");
         cuenta.putClientProperty(FlatClientProperties.STYLE, "" + "[light]foreground:darken(@foreground,30%);" + "[dark]foreground:lighten(@foreground,30%)" );

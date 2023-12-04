@@ -1,8 +1,9 @@
 package com.vantian.gui.Login;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.vantian.gui.manager.Manager;
+import com.sun.tools.javac.Main;
 import net.miginfocom.swing.MigLayout;
+import com.vantian.gui.menu.Menu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,21 @@ public class Login extends JPanel {
                 "" + "arc:20;"+"[light]background:darken(@background,3%);"+"[dark]background:lighten(@background,3%)");
 
         password.putClientProperty(FlatClientProperties.STYLE,""+"showRevealButton:true");
+
+        //configuaramos el boton de login
+        login.putClientProperty(FlatClientProperties.STYLE,"" +
+               // "[light]background:darken(@background,3%);"+
+               // "[dark]background:lighten(@background,3%);"+
+                "margin:4,6,4,6;"+
+                "borderWidth:0;"+
+                "focusWidth:0;" +
+                "innerFocusWidth:0");
+
+        login.addActionListener((e -> {
+            //control de que el usuario este verificado, si no alerta
+            Menu.menu.showMainForm();
+
+        }));
 
         //placeholders para los campos
 
@@ -67,7 +83,7 @@ public class Login extends JPanel {
         //Accion que queramos hacer al llmar al register
         register.addActionListener(regbutton -> {
             //llamamos a la gui de register
-            Manager.getInstance().mostrarRegister(new Register());
+            Menu.menu.mostrarRegister(new Register());
         });
         JLabel cuenta =new JLabel("No tienes una cuenta?");
         cuenta.putClientProperty(FlatClientProperties.STYLE, "" + "[light]foreground:darken(@foreground,30%);" + "[dark]foreground:lighten(@foreground,30%)" );
