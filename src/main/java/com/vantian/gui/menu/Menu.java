@@ -14,7 +14,7 @@ import com.vantian.gui.Login.Login;
 import com.vantian.gui.Login.Register;
 import raven.popup.GlassPanePopup;
 import com.vantian.gui.tabbed.WindowsTabbed;
-//import raven.toast.Notifications;
+import raven.toast.Notifications;
 
 
 public class Menu extends javax.swing.JFrame {
@@ -32,7 +32,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void init() {
         GlassPanePopup.install(this);
-        //Notifications.getInstance().setJFrame(this);
+        Notifications.getInstance().setJFrame(this);
         DrawerBuilder myDrawerBuilder = new DrawerBuilder();
         Drawer.getInstance().setDrawerBuilder(myDrawerBuilder);
         WindowsTabbed.getInstance().install(this, body);

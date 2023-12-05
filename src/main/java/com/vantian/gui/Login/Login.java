@@ -4,6 +4,9 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.sun.tools.javac.Main;
 import net.miginfocom.swing.MigLayout;
 import com.vantian.gui.menu.Menu;
+import raven.alerts.MessageAlerts;
+import raven.popup.component.PopupCallbackAction;
+import raven.popup.component.PopupController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +39,23 @@ public class Login extends JPanel {
 
         login.addActionListener((e -> {
             //control de que el usuario este verificado, si no alerta
-            Menu.menu.showMainForm();
+
+            //error alerta de error
+            //MessageAlerts.getInstance().showMessage("Login Incorrecto", "No se ha encontrado un usuario con los datos proporcionados, vuelva a intentarlo",
+                    //MessageAlerts.MessageType.ERROR);
+
+            //acierto en la base de datos
+            MessageAlerts.getInstance().showMessage("Login Correcto", "Disfrute de su experiencia",
+                    MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
+                        @Override
+                        public void action(PopupController popupController, int i) {
+                            if(i==MessageAlerts.OK_OPTION){
+                                Menu.menu.showMainForm();
+                            }
+                        }
+                    });
+
+
 
         }));
 
