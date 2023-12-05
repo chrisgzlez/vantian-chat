@@ -5,5 +5,6 @@ package com.vantian.bd;
  */
 public interface IDBManager {
 
+    public IDataBaseConnection getConnection();
     
 }
