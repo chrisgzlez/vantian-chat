@@ -6,7 +6,7 @@ import java.rmi.server.*;
  * UserManager
  */
 public class UserManager extends UnicastRemoteObject implements IUserManager {
-    UserManager() throws RemoteException {
+    public UserManager() throws RemoteException {
         return;
     }
 
