@@ -5,6 +5,7 @@ import java.rmi.*;
 import java.rmi.server.*;
 import java.rmi.registry.*;
 
+import com.vantian.core.*;
 
 /**
  * Server
@@ -21,7 +22,7 @@ public class Server {
             startRegistry(RMIPortNumber);
 
             // Monitoring obj = new Monitoring();
-            IUserManager userManager = new UserMangaer();
+            IUserManager userManager = new UserManager();
             registryURI = "rmi://localhost:" + RMIPortNumber + "/callback";
             Naming.rebind(registryURI, userManager);
             System.out.println(" [v] Callback Server Ready on rmi://localhost:" + RMIPortNumber);
