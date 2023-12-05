@@ -23,7 +23,7 @@ public class Server {
 
             // Monitoring obj = new Monitoring();
             IUserManager userManager = new UserManager();
-            registryURI = "rmi://localhost:" + RMIPortNumber + "/callback";
+            registryURI = "rmi://localhost:" + RMIPortNumber + "/vantianchat";
             Naming.rebind(registryURI, userManager);
             System.out.println(" [v] Callback Server Ready on rmi://localhost:" + RMIPortNumber);
 
