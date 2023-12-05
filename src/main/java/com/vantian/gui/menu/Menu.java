@@ -16,10 +16,7 @@ import raven.popup.GlassPanePopup;
 import com.vantian.gui.tabbed.WindowsTabbed;
 //import raven.toast.Notifications;
 
-/**
- *
- * @author RAVEN
- */
+
 public class Menu extends javax.swing.JFrame {
 
     public static Menu menu;

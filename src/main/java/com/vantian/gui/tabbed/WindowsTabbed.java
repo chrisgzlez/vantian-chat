@@ -5,6 +5,9 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -31,7 +34,7 @@ public class WindowsTabbed {
         return instance;
     }
 
-    public void install(JFrame frame, JPanel body) {
+    public void install(JFrame frame, JPanel body)  {
         this.body = body;
         menuBar = new JMenuBar();
         menuBar.putClientProperty(FlatClientProperties.STYLE, ""
@@ -53,8 +56,7 @@ public class WindowsTabbed {
     }
 
     private JButton createDrawerButton() {
-
-        JButton cmd = new JButton(new FlatSVGIcon("/home/ivan/GREI/3º/vantian-chat/src/main/java/com/vantian/gui/svg/menu.svg", 0.9f));
+        JButton cmd = new JButton(new FlatSVGIcon("/gui/svg/menu.svg", 0.9f));
         cmd.addActionListener((ae) -> {
             Drawer.getInstance().showDrawer();
         });
