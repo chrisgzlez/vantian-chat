@@ -3,6 +3,9 @@ package com.vantian.gui.Login;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.vantian.gui.menu.Menu;
 import net.miginfocom.swing.MigLayout;
+import raven.alerts.MessageAlerts;
+import raven.popup.component.PopupCallbackAction;
+import raven.popup.component.PopupController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,6 +52,37 @@ public class Register extends JPanel {
 
         descripcion.putClientProperty(FlatClientProperties.STYLE, "" + "[light]foreground:darken(@foreground,30%);" + "[dark]foreground:lighten(@foreground,10%)" );
 
+
+        //configuaramos el boton de login
+        registerButton.putClientProperty(FlatClientProperties.STYLE,"" +
+                // "[light]background:darken(@background,3%);"+
+                // "[dark]background:lighten(@background,3%);"+
+                "margin:4,6,4,6;"+
+                "borderWidth:0;"+
+                "focusWidth:0;" +
+                "innerFocusWidth:0");
+
+        registerButton.addActionListener((e -> {
+            //llamamos a la gui de register
+            //control de que el usuario este verificado, si no alerta
+
+            //error alerta de error
+            //MessageAlerts.getInstance().showMessage("Sing Up Incorrecto", "Los parametros proprocionados a la hora de realizar el registro no son correctos, vuelva a intentarlo",
+            //MessageAlerts.MessageType.ERROR);
+
+            //acierto en la base de datos
+            MessageAlerts.getInstance().showMessage("Sing Up Correcto", "Sera redirigido a la ventana de login, para que inicie sesion",
+                    MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
+                        @Override
+                        public void action(PopupController popupController, int i) {
+                            if(i==MessageAlerts.OK_OPTION){
+                                Menu.menu.mostrarRegister(new Login());
+                            }
+                        }
+                    });
+        }));
+
+
         panel.add(labeltitle);
         panel.add(descripcion);
         panel.add(new JLabel("Nombre Completo"),"gapy 10");
@@ -83,7 +117,6 @@ public class Register extends JPanel {
 
         //Accion que queramos hacer al llmar al register
         login.addActionListener(regbutton -> {
-            //llamamos a la gui de register
             Menu.menu.mostrarRegister(new Login());
         });
         JLabel cuenta =new JLabel("Ya registrado?");
