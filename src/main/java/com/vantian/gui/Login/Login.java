@@ -12,6 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Login extends JPanel {
+
+    private JTextField username;
+    private JPasswordField password;
+    private JCheckBox rememberMe;
+    private JButton login;
+
     public Login() {
         init();
     }
@@ -24,43 +30,41 @@ public class Login extends JPanel {
         login = new JButton("Login");
         JPanel panel = new JPanel(new MigLayout("wrap,fillx,insets 35 45 30 45","fill,250:280"));
         panel.putClientProperty(FlatClientProperties.STYLE,
-                "" + "arc:20;"+"[light]background:darken(@background,3%);"+"[dark]background:lighten(@background,3%)");
+            "" + "arc:20;"+"[light]background:darken(@background,3%);"+"[dark]background:lighten(@background,3%)"
+        );
 
         password.putClientProperty(FlatClientProperties.STYLE,""+"showRevealButton:true");
 
         //configuaramos el boton de login
         login.putClientProperty(FlatClientProperties.STYLE,"" +
-               // "[light]background:darken(@background,3%);"+
-               // "[dark]background:lighten(@background,3%);"+
-                "margin:4,6,4,6;"+
-                "borderWidth:0;"+
-                "focusWidth:0;" +
-                "innerFocusWidth:0");
+            // "[light]background:darken(@background,3%);"+
+            // "[dark]background:lighten(@background,3%);"+
+            "margin:4,6,4,6;"+
+            "borderWidth:0;"+
+            "focusWidth:0;" +
+            "innerFocusWidth:0"
+        );
 
         login.addActionListener((e -> {
             //control de que el usuario este verificado, si no alerta
-
             //error alerta de error
             //MessageAlerts.getInstance().showMessage("Login Incorrecto", "No se ha encontrado un usuario con los datos proporcionados, vuelva a intentarlo",
                     //MessageAlerts.MessageType.ERROR);
 
             //acierto en la base de datos
             MessageAlerts.getInstance().showMessage("Login Correcto", "Disfrute de su experiencia",
-                    MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
-                        @Override
-                        public void action(PopupController popupController, int i) {
-                            if(i==MessageAlerts.OK_OPTION){
-                                Menu.menu.showMainForm();
-                            }
+                MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
+                    @Override
+                    public void action(PopupController popupController, int i) {
+                        if(i==MessageAlerts.OK_OPTION){
+                            Menu.menu.showMainForm();
                         }
-                    });
-
-
-
+                    }
+                }
+            );
         }));
 
         //placeholders para los campos
-
         username.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT,"Introduzca su nombre de usuario");
         password.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT,"Introduzca su contraseña");
 
@@ -69,7 +73,6 @@ public class Login extends JPanel {
 
         //propiedades
         labeltitle.putClientProperty(FlatClientProperties.STYLE, "" + "font:bold +13");
-
         descripcion.putClientProperty(FlatClientProperties.STYLE, "" + "[light]foreground:darken(@foreground,30%);" + "[dark]foreground:lighten(@foreground,10%)" );
 
         panel.add(labeltitle);
@@ -88,7 +91,6 @@ public class Login extends JPanel {
     }
 
     //Jpanel para el singup
-
     private Component SingUp(){
         JPanel panel= new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
         panel.putClientProperty(FlatClientProperties.STYLE, "" + "background:null");
@@ -111,13 +113,4 @@ public class Login extends JPanel {
         panel.add(register);
         return panel;
     }
-
-
-
-
-    private JTextField username;
-    private JPasswordField password;
-    private JCheckBox rememberMe;
-    private JButton login;
-
 }
