@@ -16,18 +16,9 @@ import com.vantian.bd.IDataBaseConnection;
  */
 public class UserManager extends UnicastRemoteObject implements IUserManager {
     private IDBManager dbManager;
-    private PreparedStatement isRegisteredStmnt, createUserStmnt;
     public UserManager(IDBManager dbManager) throws RemoteException {
         super();
         this.dbManager = dbManager;
-
-        IDataBaseConnection conn = this.dbManager.getConnection();
-
-
-        if (this.createUserStmnt == null || this.isRegisteredStmnt == null) {
-            System.err.println(" [x] Error Connecting to Database in UserManager.");
-            System.exit(1);
-        }
         return;
     }
 
