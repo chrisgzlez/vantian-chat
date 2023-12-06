@@ -6,6 +6,6 @@ package com.vantian.bd;
 public interface IDataBaseInitializer {
 
     public void init();  
-    public void hasBeenInitialized();
+    public boolean hasBeenInitialized();
     
 }
