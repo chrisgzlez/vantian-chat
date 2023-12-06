@@ -52,12 +52,17 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
     public boolean logIn(IUser user, IPassword passwd) {
         try {
             if(!this.isRegistered(user)){
-                System.err.println(" [v] Client " + user.getUserName() + " already signed in");
+                System.err.println(" [v] Client " + user.getUserName() + " not signed in");
+                return false;
+            }
+            if(!this.validateCredentials(user, passwd)) {
+                System.err.println(" [v] Client " + user.getUserName() + " wrong password");
                 return false;
             }
             String username = user.getUserName();
-            this.loggedUsers.put(username, user);
+
             user.updateFriends(this.loggedUsers);
+            this.loggedUsers.put(username, user);
 
             for (Entry<String,IUser> entry : this.loggedUsers.entrySet()) {
                 String loggedUserName =  entry.getKey();
@@ -67,6 +72,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
                 
             }
 
+            System.out.println(" [v] Client " + user.getUserName() + " succesfully logged in and notified");
             return true;
         } catch (Exception e) {
             System.out.println(" [x] Could not reach user to register it... " + e.getMessage());
@@ -88,6 +94,23 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             e.printStackTrace(System.err);
             return false;
         }
+    }
+
+    public boolean validateCredentials(IUser user, IPassword passwd) {
+        PreparedStatement statement = this.dbManager.isValidCredentials();
+        try {
+            statement.setString(1, user.getUserName());
+            statement.setString(2, passwd.get());
+            ResultSet rs = statement.executeQuery();
+
+            // If valid credentials, returns true else false
+            return rs.next();
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to check if its registered... " + e.getMessage());
+            e.printStackTrace(System.err);
+            return false;
+        }
+
     }
 
 
