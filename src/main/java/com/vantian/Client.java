@@ -4,6 +4,7 @@ import java.rmi.*;
 import java.rmi.registry.*;
 
 import com.vantian.core.IUserManager;
+import com.vantian.core.Password;
 import com.vantian.core.IUser;
 import com.vantian.core.User;
 import com.vantian.gui.GUI;
@@ -40,7 +41,7 @@ public class Client {
 
             // TODO: Get this into login function
             IUser user = new User("christian");
-            userManager.signIn(user);
+            userManager.signIn(user, new Password("test"));
 
         } catch (Exception e) {
             System.out.println(" [x] Exception in Client. " + e);
