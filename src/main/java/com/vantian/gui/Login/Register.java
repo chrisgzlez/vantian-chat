@@ -1,7 +1,7 @@
 package com.vantian.gui.Login;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.vantian.gui.menu.Menu;
+import com.vantian.gui.MainWindow;
 import net.miginfocom.swing.MigLayout;
 import raven.alerts.MessageAlerts;
 import raven.popup.component.PopupCallbackAction;
@@ -76,7 +76,7 @@ public class Register extends JPanel {
                         @Override
                         public void action(PopupController popupController, int i) {
                             if(i==MessageAlerts.OK_OPTION){
-                                Menu.menu.mostrarRegister(new Login());
+                                MainWindow.mainWindow.mostrarRegister(new Login());
                             }
                         }
                     });
@@ -117,7 +117,7 @@ public class Register extends JPanel {
 
         //Accion que queramos hacer al llmar al register
         login.addActionListener(regbutton -> {
-            Menu.menu.mostrarRegister(new Login());
+            MainWindow.mainWindow.mostrarRegister(new Login());
         });
         JLabel cuenta =new JLabel("Ya registrado?");
         cuenta.putClientProperty(FlatClientProperties.STYLE, "" + "[light]foreground:darken(@foreground,30%);" + "[dark]foreground:lighten(@foreground,30%)" );
