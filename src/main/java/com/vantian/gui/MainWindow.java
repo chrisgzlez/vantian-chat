@@ -1,4 +1,4 @@
-package com.vantian.gui.menu;
+package com.vantian.gui;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
@@ -11,21 +11,20 @@ import javax.swing.*;
 import com.vantian.gui.drawer.DrawerBuilder;
 import raven.drawer.Drawer;
 import com.vantian.gui.Login.Login;
-import com.vantian.gui.Login.Register;
 import raven.popup.GlassPanePopup;
 import com.vantian.gui.tabbed.WindowsTabbed;
 import raven.toast.Notifications;
 
 
-public class Menu extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame {
 
-    public static Menu menu;
+    public static MainWindow mainWindow;
     private Login loginForm;
 
     /**
      * Creates new form Main
      */
-    public Menu() {
+    public MainWindow() {
         initComponents();
         init();
     }
@@ -36,7 +35,6 @@ public class Menu extends javax.swing.JFrame {
         DrawerBuilder myDrawerBuilder = new DrawerBuilder();
         Drawer.getInstance().setDrawerBuilder(myDrawerBuilder);
         WindowsTabbed.getInstance().install(this, body);
-        //applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         login();
     }
     
@@ -100,8 +98,8 @@ public class Menu extends javax.swing.JFrame {
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatMacDarkLaf.setup();
         java.awt.EventQueue.invokeLater(() -> {
-            menu = new Menu();
-            menu.setVisible(true);
+            mainWindow = new MainWindow();
+            mainWindow.setVisible(true);
         });
     }
 
