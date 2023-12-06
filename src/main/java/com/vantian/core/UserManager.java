@@ -46,7 +46,6 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             statement.setTimestamp(4, Timestamp.from(Instant.now()));
             ResultSet rs = statement.executeQuery();
             return rs.next();
-            return true;
             
         } catch (Exception e) {
             System.out.println(" [x] Could not reach user...");
