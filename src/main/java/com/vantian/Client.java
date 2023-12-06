@@ -39,9 +39,28 @@ public class Client {
             System.out.println(" [*] Initializing GUI...");
             GUI gui = new GUI(userManager);
 
-            // TODO: Get this into login function
             IUser user = new User("christian");
-            userManager.signIn(user, new Password("test"));
+            boolean check = userManager.signIn(user, new Password("test"));
+            if(check) {
+                System.out.println("Succesfully signed in");
+            } else {
+                System.out.println("Unsuccesfully signed in");
+            }
+
+            System.out.println(" [*] Attempting login with correct password");
+            userManager.logIn(user, new Password("test"));
+
+            System.out.println(" [*] Attempting login with wrong password");
+            userManager.logIn(user, new Password("fail"));
+
+            IUser user1 = new User("ivan");
+            userManager.signIn(user1, new Password("test"));
+            userManager.logIn(user1, new Password("test"));
+
+            IUser user2 = new User("adrian");
+            userManager.signIn(user2, new Password("test"));
+            userManager.logIn(user2, new Password("test"));
+            while(true);
 
         } catch (Exception e) {
             System.out.println(" [x] Exception in Client. " + e);
