@@ -2,15 +2,13 @@ package com.vantian.gui.drawer;
 
 import com.vantian.gui.tabbed.WindowsTabbed;
 import com.vantian.gui.windows.Chat;
-import com.vantian.gui.windows.TestForm;
+import com.vantian.gui.windows.chatComponents.ChatBody;
 import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.footer.SimpleFooterData;
 import raven.drawer.component.header.SimpleHeaderData;
 import raven.drawer.component.menu.MenuAction;
 import raven.drawer.component.menu.MenuEvent;
-import raven.drawer.component.menu.MenuValidation;
 import raven.drawer.component.menu.SimpleMenuOption;
-import raven.swing.AvatarIcon;
 
 public class DrawerBuilder extends SimpleDrawerBuilder {
     @Override
