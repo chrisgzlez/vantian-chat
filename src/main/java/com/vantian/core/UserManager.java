@@ -27,6 +27,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             System.out.println("Sign in called by: " + user.getUserName() + " password: " + passwd.get());
             System.out.println("Reference: " + user.toString());
             if(this.isRegistered(user)) {
+                System.out.println(" [v] Client " + user.getUserName() + " already signed in");
                 return true;
             }
 
@@ -35,16 +36,23 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             statement.setString(2, passwd.get());
             statement.setTimestamp(3, Timestamp.from(Instant.now()));
             statement.setTimestamp(4, Timestamp.from(Instant.now()));
-            ResultSet rs = statement.executeQuery();
-            return rs.next();
+            if (statement.executeUpdate() == 1) {
+                System.out.println(" [v] Client " + user.getUserName() + " succesfully signed in");
+                return true;
+            }
+            return false;
             
         } catch (Exception e) {
-            System.out.println(" [x] Could not reach user...");
+            System.out.println(" [x] Could not reach user to register it... " + e.getMessage());
+            e.printStackTrace(System.err);
             return false;
         }
     }
 
     public boolean logIn(IUser user, IPassword passwd) {
+        if(!this.isRegistered(user)) {
+            return false;
+        }
         return true;
     }
 
@@ -57,7 +65,8 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             // If registered, returns true else false
             return rs.next();
         } catch (Exception e) {
-            System.out.println(" [x] Could not reach user...");
+            System.out.println(" [x] Could not reach user to check if its registered... " + e.getMessage());
+            e.printStackTrace(System.err);
             return false;
         }
     }
