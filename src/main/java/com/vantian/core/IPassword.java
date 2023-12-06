@@ -1,9 +1,12 @@
 package com.vantian.core;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  * IPassword
  */
-public interface IPassword {
+public interface IPassword extends Remote {
 
-    public String get();
+    public String get() throws RemoteException;
 }
