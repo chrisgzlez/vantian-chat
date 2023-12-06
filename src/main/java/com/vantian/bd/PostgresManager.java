@@ -47,6 +47,14 @@ public class PostgresManager implements IDBManager {
         );
     }
 
+    public PreparedStatement isValidCredentials() {
+        return this.conn.preparedStatement(
+            "SELECT 1 FROM users "
+            + "WHERE username = ? "
+            + "AND password = ?"
+        );
+    }
+
     public PreparedStatement createUserStmt() {
         return this.conn.preparedStatement(
             "INSERT INTO users " + 

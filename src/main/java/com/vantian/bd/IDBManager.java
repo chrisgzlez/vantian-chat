@@ -11,6 +11,8 @@ public interface IDBManager {
 
     public PreparedStatement isRegisteredStmt();
 
+    public PreparedStatement isValidCredentials();
+
     public PreparedStatement createUserStmt();
     
 }
