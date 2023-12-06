@@ -1,6 +1,7 @@
 package com.vantian.gui.drawer;
 
 import com.vantian.gui.tabbed.WindowsTabbed;
+import com.vantian.gui.windows.Chat;
 import com.vantian.gui.windows.TestForm;
 import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.footer.SimpleFooterData;
@@ -49,7 +50,11 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
                     @Override
                     public void selected(MenuAction menuAction, int index, int subindex) {
                         if (index==0){
-                            WindowsTabbed.getInstance().addTab("Test Form",new TestForm());
+                            //WindowsTabbed.getInstance().addTab("Test Form",new TestForm());
+                            WindowsTabbed.getInstance().addTab("Chat",new Chat());
+                        //if (index==1){
+                           // WindowsTabbed.getInstance().addTab("Chat",new Chat());
+                       // }
                         }
 
                     }
