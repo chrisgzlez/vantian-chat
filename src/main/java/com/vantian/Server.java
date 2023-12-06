@@ -5,6 +5,8 @@ import java.rmi.*;
 import java.rmi.server.*;
 import java.rmi.registry.*;
 
+import com.vantian.bd.IDBManager;
+import com.vantian.bd.PostgresManager;
 import com.vantian.core.*;
 
 /**
@@ -21,8 +23,8 @@ public class Server {
             int RMIPortNumber = Integer.parseInt(portNumber);
             startRegistry(RMIPortNumber);
 
-            // Monitoring obj = new Monitoring();
-            IUserManager userManager = new UserManager();
+            IDBManager dbManager = new PostgresManager("localhost", 5432, "vantian", "postgres", null);
+            IUserManager userManager = new UserManager(dbManager);
             registryURI = "rmi://localhost:" + RMIPortNumber + "/vantianchat";
             Naming.rebind(registryURI, userManager);
             System.out.println(" [v] Callback Server Ready on rmi://localhost:" + RMIPortNumber);
