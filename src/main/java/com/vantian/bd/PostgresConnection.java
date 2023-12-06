@@ -2,7 +2,6 @@ package com.vantian.bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
@@ -17,6 +16,7 @@ public class PostgresConnection implements IDataBaseConnection {
             this.conexion = DriverManager.getConnection(connectionString, user, password);
         } catch (SQLException e) {
             System.err.println("Error al conectar a la base de datos: " + e.getMessage());
+            System.exit(1);
         }
     }
     public PostgresConnection(String connectionUrl, String user, String password) {
@@ -24,6 +24,7 @@ public class PostgresConnection implements IDataBaseConnection {
             this.conexion = DriverManager.getConnection(this.protocol + "://" + connectionUrl, user, password);
         } catch (SQLException e) {
             System.err.println("Error al conectar a la base de datos: " + e.getMessage());
+            System.exit(1);
         }
     }
 
