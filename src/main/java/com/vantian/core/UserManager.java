@@ -3,29 +3,29 @@ import java.rmi.*;
 import java.rmi.server.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.vantian.bd.IDBManager;
-import com.vantian.bd.IDataBaseConnection;
 
 /**
  * UserManager
  */
 public class UserManager extends UnicastRemoteObject implements IUserManager {
     private IDBManager dbManager;
+    private HashMap<String, IUser> loggedUsers;
     public UserManager(IDBManager dbManager) throws RemoteException {
         super();
         this.dbManager = dbManager;
+        this.loggedUsers = new HashMap<>();
         return;
     }
 
     public boolean signIn(IUser user, IPassword passwd) {
         try {
-            System.out.println("Sign in called by: " + user.getUserName() + " password: " + passwd.get());
-            System.out.println("Reference: " + user.toString());
             if(this.isRegistered(user)) {
                 System.out.println(" [v] Client " + user.getUserName() + " already signed in");
                 return true;
@@ -50,10 +50,29 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
     }
 
     public boolean logIn(IUser user, IPassword passwd) {
-        if(!this.isRegistered(user)) {
+        try {
+            if(!this.isRegistered(user)){
+                System.err.println(" [v] Client " + user.getUserName() + " already signed in");
+                return false;
+            }
+            String username = user.getUserName();
+            this.loggedUsers.put(username, user);
+            user.updateFriends(this.loggedUsers);
+
+            for (Entry<String,IUser> entry : this.loggedUsers.entrySet()) {
+                String loggedUserName =  entry.getKey();
+                if (loggedUserName != username) {
+                    entry.getValue().notifyLogin(user);
+                }
+                
+            }
+
+            return true;
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to register it... " + e.getMessage());
+            e.printStackTrace(System.err);
             return false;
         }
-        return true;
     }
 
     public boolean isRegistered(IUser user) {
