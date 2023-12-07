@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.border.EmptyBorder;
 
-public class ChatItem extends javax.swing.JLayeredPane {
+public class ChatItem extends JLayeredPane {
 
     private JLabel label;
 
@@ -46,7 +46,7 @@ public class ChatItem extends javax.swing.JLayeredPane {
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
         txt.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 5, 10));
-        txt.setSelectionColor(new java.awt.Color(7, 2, 2));
+        txt.setSelectionColor(new Color(7, 2, 2));
         add(txt);
     }// </editor-fold>//GEN-END:initComponents
 
