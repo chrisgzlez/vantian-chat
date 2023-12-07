@@ -2,6 +2,7 @@ package com.vantian.gui.drawer;
 
 import com.vantian.gui.tabbed.WindowsTabbed;
 import com.vantian.gui.windows.AgregarAmigo;
+import com.vantian.gui.windows.CambiarCredenciales;
 import com.vantian.gui.windows.NewChat;
 import com.vantian.gui.windows.SolicitudesAmistad;
 import raven.drawer.component.SimpleDrawerBuilder;
@@ -51,6 +52,9 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
                             solicitudes.addFriendRequest("Usuario1");
                             solicitudes.addFriendRequest("Usuario2");
                             WindowsTabbed.getInstance().addTab("Solicitudes de Amistad",solicitudes);
+                        }
+                        if (index==3){
+                            WindowsTabbed.getInstance().addTab("Cambiar Contrasena",new CambiarCredenciales());
                         }
 
                     }
