@@ -1,8 +1,8 @@
 package com.vantian.gui.drawer;
 
 import com.vantian.gui.tabbed.WindowsTabbed;
+import com.vantian.gui.windows.AgregarAmigo;
 import com.vantian.gui.windows.Chat;
-import com.vantian.gui.windows.TestForm;
 import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.footer.SimpleFooterData;
 import raven.drawer.component.header.SimpleHeaderData;
@@ -29,18 +29,10 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
 
         String menus[][] = {
                 {"~MAIN~"},
-                {"Dashboard"},
-                {"~WEB APP~"},
-                {"Email", "Inbox", "Read", "Compost"},
-                {"Chat"},
-                {"Calendar"},
-                {"~COMPONENT~"},
-                {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-                {"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
-                {"~OTHER~"},
-                {"Charts", "Apex", "Flot", "Sparkline"},
-                {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-                {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
+                {"New Chat"},
+                {"Agregar Amigos"},
+                {"Notificaciones"},
+                {"Cambiar configuracion"},
                 {"Logout"}};
 
 
@@ -50,11 +42,10 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
                     @Override
                     public void selected(MenuAction menuAction, int index, int subindex) {
                         if (index==0){
-                            //WindowsTabbed.getInstance().addTab("Test Form",new TestForm());
-                            WindowsTabbed.getInstance().addTab("Chat",new Chat());
-                        //if (index==1){
-                           // WindowsTabbed.getInstance().addTab("Chat",new Chat());
-                       // }
+                            WindowsTabbed.getInstance().addTab("New Chat",new Chat());
+                        }
+                        if (index==1){
+                            WindowsTabbed.getInstance().addTab("New Chat",new AgregarAmigo());
                         }
 
                     }
