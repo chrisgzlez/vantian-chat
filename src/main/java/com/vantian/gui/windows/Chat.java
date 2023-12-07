@@ -1,104 +1,53 @@
 package com.vantian.gui.windows;
 
 import com.vantian.gui.tabbed.TabbedForm;
-import com.vantian.gui.windows.chatComponents.*;
-import com.vantian.gui.windows.swingitems.ScrollBar;
+import com.vantian.gui.windows.chatComponents.ChatBody;
+import com.vantian.gui.windows.chatComponents.ChatBottom;
+import com.vantian.gui.windows.chatComponents.event.EventChat;
+import com.vantian.gui.windows.chatComponents.event.PublicEvent;
 import net.miginfocom.swing.MigLayout;
-
-import javax.swing.*;
-import java.awt.Color;
 
 public class Chat extends TabbedForm {
 
-    /**
-     * Creates new form Main
-     */
     public Chat() {
         initComponents();
         init();
-        addItemRight("Send a text message to a group of contacts. Include photos, personalize your texts, and track who clicked your links.");
-        addItemRight("hello\nHi");
-        addItemLeft("Simpletext started as a passion project because I couldn’t find what I was looking for. Most apps were trying to do too much and ended up bloated with features I don’t need. So I built Simpletext based on a simple premise — what if there’s an app that refuses to do more, choosing instead to do just one thing, and do it well? For Simpletext, that one thing is writing.");
-        addItemLeft("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemLeft("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-
     }
 
     private void init() {
-        body.setLayout(new MigLayout("fillx", "", "5[]5"));
-        sp.setVerticalScrollBar(new ScrollBar());
-        sp.getVerticalScrollBar().setBackground(Color.darkGray);
-    }
+        setLayout(new MigLayout("fillx", "0[fill]0", "0[100%, bottom]0[shrink 0]0"));
+        ChatBody chatBody = new ChatBody();
+        ChatBottom chatBottom = new ChatBottom();
+        PublicEvent.getInstance().addEventChat(new EventChat() {
+            @Override
+            public void sendMessage(String text) {
+                chatBody.addItemRight(text);
+            }
+        });
 
-    public void addItemLeft(String text) {
-        ChatLeft item = new ChatLeft();
-        item.setText(text);
-        body.add(item, "wrap, w ::80%");
-        //  ::80% set max with 80%
-        body.repaint();
-        body.revalidate();
-    }
-
-    public void addItemRight(String text) {
-        ChatRight item = new ChatRight();
-        item.setText(text);
-        body.add(item, "wrap, al right, w ::80%");
-        //  ::80% set max with 80%
-        body.repaint();
-        body.revalidate();
+        add(chatBody, "wrap");
+        add(chatBottom, "h ::50%");
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sp = new javax.swing.JScrollPane();
-        body = new javax.swing.JPanel();
-
-        sp.setBorder(null);
-        sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        body.setBackground(new java.awt.Color(54, 54, 54, 255));
-
-        javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
-        body.setLayout(bodyLayout);
-        bodyLayout.setHorizontalGroup(
-                bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 826, Short.MAX_VALUE)
-        );
-        bodyLayout.setVerticalGroup(
-                bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 555, Short.MAX_VALUE)
-        );
-
-        sp.setViewportView(body);
+        setBackground(new java.awt.Color(54, 54, 54));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(sp)
+                        .addGap(0, 727, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(sp)
+                        .addGap(0, 681, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel body;
-    private javax.swing.JScrollPane sp;
     // End of variables declaration//GEN-END:variables
 }

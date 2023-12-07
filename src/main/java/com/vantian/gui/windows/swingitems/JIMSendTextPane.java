@@ -15,6 +15,16 @@ import javax.swing.text.ViewFactory;
 
 public class JIMSendTextPane extends JTextPane {
 
+    public String getHintText() {
+        return hintText;
+    }
+
+    public void setHintText(String hintText) {
+        this.hintText = hintText;
+    }
+
+    private String hintText = "";
+
     private class WarpEditorKit extends StyledEditorKit {
 
         private ViewFactory defaultFactory = new WarpColumnFactory();

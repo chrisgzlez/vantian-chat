@@ -10,7 +10,7 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
 
 
-public class ChatBody extends javax.swing.JPanel {
+public class ChatBody extends JPanel {
 
     /**
      * Creates new form Main
@@ -72,35 +72,35 @@ public class ChatBody extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sp = new javax.swing.JScrollPane();
-        body = new javax.swing.JPanel();
+        sp = new JScrollPane();
+        body = new JPanel();
 
         sp.setBorder(null);
         sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        body.setBackground(new java.awt.Color(54, 54, 54, 255));
+        body.setBackground(new Color(54, 54, 54, 255));
 
-        javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
+        GroupLayout bodyLayout = new GroupLayout(body);
         body.setLayout(bodyLayout);
         bodyLayout.setHorizontalGroup(
-                bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                bodyLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 826, Short.MAX_VALUE)
         );
         bodyLayout.setVerticalGroup(
-                bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                bodyLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 555, Short.MAX_VALUE)
         );
 
         sp.setViewportView(body);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(sp)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(sp)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -120,7 +120,7 @@ public class ChatBody extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel body;
-    private javax.swing.JScrollPane sp;
+    private JPanel body;
+    private JScrollPane sp;
     // End of variables declaration//GEN-END:variables
 }
