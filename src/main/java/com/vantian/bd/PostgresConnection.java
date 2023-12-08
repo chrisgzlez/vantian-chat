@@ -1,6 +1,11 @@
 package com.vantian.bd;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
 public class PostgresConnection implements IDataBaseConnection {
 
@@ -35,12 +40,20 @@ public class PostgresConnection implements IDataBaseConnection {
         }
     }
 
+    public PreparedStatement preparedStatement(String query) {
+        try {
+            return this.conexion.prepareStatement(query);
+        } catch (SQLException e) {
+            System.err.println("Exception on prepare statment: " + e.getMessage());
+            System.exit(1);
+            return null;
+        }
+    }
     //Tipo de consulta a emplear
 
-    public ResultSet executeQuery(String query) {
+    public ResultSet executeQuery(PreparedStatement statement) {
         try {
-            Statement statement = conexion.createStatement();
-            return statement.executeQuery(query);
+            return statement.executeQuery();
         } catch (SQLException e) {
             System.err.println("Error al ejecutar la consulta: " + e.getMessage());
             return null;

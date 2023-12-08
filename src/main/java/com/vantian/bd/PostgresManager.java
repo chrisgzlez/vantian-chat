@@ -1,6 +1,7 @@
 package com.vantian.bd;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import javax.naming.directory.InvalidAttributesException;
 
@@ -30,9 +31,6 @@ public class PostgresManager implements IDBManager {
             throw new InvalidAttributesException("Not valid username for db connection");
         }
         this.dbUser = user;
-        if (password == null) {
-            throw new InvalidAttributesException("Not valid passwordname for db connection");
-        }
         this.dbPasswd = password;
 
         this.conn = new PostgresConnection(this.connectionUrl, this.dbUser, this.dbPasswd);
@@ -40,5 +38,27 @@ public class PostgresManager implements IDBManager {
 
     public PostgresConnection getConnection() {
         return this.conn;
+    }
+
+    public PreparedStatement isRegisteredStmt() {
+        return this.conn.preparedStatement(
+            "SELECT 1 FROM users "
+            + "WHERE username = ?"
+        );
+    }
+
+    public PreparedStatement isValidCredentials() {
+        return this.conn.preparedStatement(
+            "SELECT 1 FROM users "
+            + "WHERE username = ? "
+            + "AND password = ?"
+        );
+    }
+
+    public PreparedStatement createUserStmt() {
+        return this.conn.preparedStatement(
+            "INSERT INTO users " + 
+            "VALUES (?, ?, ?, ?)"
+        );
     }
 }
