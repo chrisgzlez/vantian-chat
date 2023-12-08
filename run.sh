@@ -21,6 +21,11 @@ function run() {
         com.vantian.${Class} ${port}
 }
 
+function clean_run() {
+    clean || true
+    run $1 $2
+}
+
 function build() {
     mvn package
 }
