@@ -1,13 +1,16 @@
 package com.vantian.gui.drawer;
 
+import com.vantian.gui.tabbed.WindowsTabbed;
+import com.vantian.gui.windows.AgregarAmigo;
+import com.vantian.gui.windows.CambiarCredenciales;
+import com.vantian.gui.windows.NewChat;
+import com.vantian.gui.windows.SolicitudesAmistad;
 import raven.drawer.component.SimpleDrawerBuilder;
 import raven.drawer.component.footer.SimpleFooterData;
 import raven.drawer.component.header.SimpleHeaderData;
 import raven.drawer.component.menu.MenuAction;
 import raven.drawer.component.menu.MenuEvent;
-import raven.drawer.component.menu.MenuValidation;
 import raven.drawer.component.menu.SimpleMenuOption;
-import raven.swing.AvatarIcon;
 
 public class DrawerBuilder extends SimpleDrawerBuilder {
     @Override
@@ -26,18 +29,10 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
 
         String menus[][] = {
                 {"~MAIN~"},
-                {"Dashboard"},
-                {"~WEB APP~"},
-                {"Email", "Inbox", "Read", "Compost"},
-                {"Chat"},
-                {"Calendar"},
-                {"~COMPONENT~"},
-                {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-                {"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
-                {"~OTHER~"},
-                {"Charts", "Apex", "Flot", "Sparkline"},
-                {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-                {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
+                {"New Chat"},
+                {"Agregar Amigos"},
+                {"Notificaciones"},
+                {"Cambiar configuracion"},
                 {"Logout"}};
 
 
@@ -45,8 +40,23 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
                 .setMenus(menus)
                 .addMenuEvent(new MenuEvent() {
                     @Override
-                    public void selected(MenuAction menuAction, int i, int i1) {
-                        System.out.println("Menu Selected");
+                    public void selected(MenuAction menuAction, int index, int subindex) {
+                        if (index==0){
+                            WindowsTabbed.getInstance().addTab("Seleccione Chat",new NewChat());
+                        }
+                        if (index==1){
+                            WindowsTabbed.getInstance().addTab("Agregar Amigos",new AgregarAmigo());
+                        }
+                        if (index==2){
+                            SolicitudesAmistad solicitudes = new SolicitudesAmistad();
+                            solicitudes.addFriendRequest("Usuario1");
+                            solicitudes.addFriendRequest("Usuario2");
+                            WindowsTabbed.getInstance().addTab("Solicitudes de Amistad",solicitudes);
+                        }
+                        if (index==3){
+                            WindowsTabbed.getInstance().addTab("Cambiar Contrasena",new CambiarCredenciales());
+                        }
+
                     }
                 });
         //Menu validation

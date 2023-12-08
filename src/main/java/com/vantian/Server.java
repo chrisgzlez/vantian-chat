@@ -15,12 +15,23 @@ import com.vantian.core.*;
 public class Server {
 
     public static void main(String[] args) {
-        BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
-        String portNumber, registryURI;
+        int RMIPortNumber = 8080;
+        if (args.length > 0) {
+            RMIPortNumber = Integer.parseInt(args[0]);
+        } else {
+            try {
+                BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
+                System.out.print(" [*] Enter the port number: ");
+                String portNumber = (buff.readLine()).trim();
+                RMIPortNumber = Integer.parseInt(portNumber);
+            } catch (IOException e) {
+                System.err.println("Error reading from terminal. " + e.getMessage());
+                System.exit(1);
+            }
+        }
+
+        String registryURI;
         try {
-            System.out.print(" [*] Enter the port number: ");
-            portNumber = (buff.readLine()).trim();
-            int RMIPortNumber = Integer.parseInt(portNumber);
             startRegistry(RMIPortNumber);
 
             IDBManager dbManager = new PostgresManager("localhost", 5432, "vantian", "postgres", null);
