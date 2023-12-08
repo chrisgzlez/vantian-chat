@@ -24,3 +24,7 @@ function run() {
 function build() {
     mvn package
 }
+
+function clean() {
+    rm -rf target
+}
