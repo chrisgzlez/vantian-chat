@@ -55,8 +55,14 @@ public class Client {
             IUser user2 = new User("adrian");
             userManager.signIn(user2, new Password("test"));
             userManager.logIn(user2, new Password("test"));
-            while(true);
 
+            IUser user3 = new User("loly");
+            userManager.signIn(user3, new Password("test"));
+            userManager.logIn(user3, new Password("test"));
+
+            IUser user4 = new User("pepe");
+            userManager.signIn(user4, new Password("test"));
+            userManager.logIn(user4, new Password("test"));
         } catch (Exception e) {
             System.out.println(" [x] Exception in Client. " + e);
             e.printStackTrace(System.err);

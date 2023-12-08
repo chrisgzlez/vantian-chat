@@ -73,6 +73,11 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             }
 
             System.out.println(" [v] Client " + user.getUserName() + " succesfully logged in and notified");
+            System.out.println("----Connected Clients-----");
+            for (Entry<String, IUser> e : this.loggedUsers.entrySet()) {
+                System.out.println(" - " + e.getKey());
+            }
+            System.out.println("--------------------------");
             return true;
         } catch (Exception e) {
             System.out.println(" [x] Could not reach user to register it... " + e.getMessage());
