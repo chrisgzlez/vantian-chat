@@ -15,24 +15,19 @@ import java.io.*;
  */
 public class Client {
     public static void main(String[] args) {
+        String registryHost = "localhost", serviceName = "vantianchat";
+        int registryPort =  5601;
+        if (args.length >= 3) {
+            registryHost = args[0];
+            registryPort = Integer.parseInt(args[1]);
+            serviceName = args[2];
+        } else {
+            System.out.println("No arguments were provided, using defaults...");
+        }
         try {
-            BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
-            System.out.print(" [*] Enter the host name of the registry: ");
-            String registryHost = buff.readLine().trim();
-            System.out.print(" [*] Enter the port of the registry: ");
-            int registryPort = Integer.parseInt(buff.readLine().trim());
+
             String registryURL = "rmi://" + registryHost + ":" + registryPort;
-
-            Registry registry = LocateRegistry.getRegistry(registryHost, registryPort);
-            String[] svcs = registry.list();
-            System.out.println(" [*] Available Services: ");
-            for (String svc : svcs) {
-                System.out.println("\t- " + svc);
-                
-            }
-            System.out.print(" [*] Choose a service: ");
-            String serviceName = buff.readLine().trim();
-
+            System.out.println(registryURL + "/" + serviceName);
             IUserManager userManager = (IUserManager)Naming.lookup(registryURL + "/" + serviceName);
 
             System.out.println(" [*] Initializing GUI...");
