@@ -1,6 +1,16 @@
 # Vantian-chat
 Aplicación P2P empleando Java RMI
 
+## Ejecución
+`source ./run.sh`
+Al realizar el source se tienen acceso a las funciones del script directamente como comandos de terminal (necesario en cada nueva sesión de terminal).
+
+- clean: elimina carpeta de build
+- build: realiza el build
+- run_client: runea el cliente con valores por defecto de localhost:5601/vantianchat. Se le pasa argumentos por el orden indicado anteriormente
+- run_server: runea el server, por defecto puerto 5601
+- run_gui: ejecuta gui (mainWindow). Eventualmente se eliminará   
+
 ## Estructura App
 - GUI
   Paquete de gui con Java Swing
