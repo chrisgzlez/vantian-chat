@@ -7,6 +7,12 @@ if [[ -n ${2} ]]; then
     port=${2}
 fi
 
+if [[ ! -d "./target/" ]]; then
+    echo "No Build Classes found, building..."
+    mvn package --quiet || exit 1
+    echo "Succesfully build package"
+fi
+
 /usr/lib/jvm/java-21-openjdk/bin/java \
 	-Dfile.encoding=UTF-8 \
 	-Dsun.stdout.encoding=UTF-8 \
