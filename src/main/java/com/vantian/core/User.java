@@ -56,8 +56,10 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
         return;
 	}
 
+    // Returns first element in queue.
+    // It returns only ONE IMessage or Null if queue is empty
     public IMessage receive(ICommunicate sender){
-        return null;
+        return this.mssgQueue.get(sender.getId()).poll();
 	}
 
     public String getId() {
