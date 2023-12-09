@@ -1,5 +1,6 @@
 package com.vantian.gui.drawer;
 
+import com.vantian.gui.MainWindow;
 import com.vantian.gui.tabbed.WindowsTabbed;
 import com.vantian.gui.windows.AgregarAmigo;
 import com.vantian.gui.windows.CambiarCredenciales;
@@ -13,15 +14,19 @@ import raven.drawer.component.menu.MenuEvent;
 import raven.drawer.component.menu.SimpleMenuOption;
 
 public class DrawerBuilder extends SimpleDrawerBuilder {
+
     @Override
     public SimpleHeaderData getSimpleHeaderData() {
-            //no pone la fotito
-            return new SimpleHeaderData()
-                            .setTitle("Ivan");
+        String userName = "User";
+        try {
+            userName  = MainWindow.user.getUserName();
+            
+        } catch (Exception e) {
+            userName = "User";
+        }
 
-
-
-
+        return new SimpleHeaderData()
+            .setTitle(userName);
     }
 
     @Override

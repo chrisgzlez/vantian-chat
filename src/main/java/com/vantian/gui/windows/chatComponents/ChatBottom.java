@@ -1,6 +1,7 @@
 package com.vantian.gui.windows.chatComponents;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.vantian.core.communication.TextMessage;
 import com.vantian.gui.windows.chatComponents.event.PublicEvent;
 import com.vantian.gui.windows.swingitems.JIMSendTextPane;
 import com.vantian.gui.windows.swingitems.ScrollBar;
@@ -61,7 +62,13 @@ public class ChatBottom extends JPanel {
             public void actionPerformed(ActionEvent ae) {
                 String text = txt.getText().trim();
                 if (!text.equals("")) {
-                    PublicEvent.getInstance().getEventChat().sendMessage(text);
+                    try {
+                        PublicEvent.getInstance().getEventChat().sendMessage(new TextMessage(text));
+                    } catch (Exception e) {
+                        System.err.println("Exception sending mssg: " + e.getMessage());
+                        e.printStackTrace(System.err);
+                        return;
+                    }
                     txt.setText("");
                     txt.grabFocus();
                     refresh();

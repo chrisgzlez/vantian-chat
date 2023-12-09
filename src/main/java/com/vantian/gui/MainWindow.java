@@ -28,7 +28,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public static MainWindow mainWindow;
     public static IUserManager userManager;
-    public static IUser user;
+    public static IUser user = null;
     public static IPassword userPassword;
     private Login loginForm;
 
@@ -54,6 +54,9 @@ public class MainWindow extends javax.swing.JFrame {
                 @Override
                 public void windowClosing(WindowEvent e) {
                     try {
+                        if (MainWindow.user == null) {
+                            System.exit(1);
+                        }
                         
                         MainWindow.userManager.logOut(MainWindow.user, MainWindow.userPassword);
                     } catch (RemoteException ex) {

@@ -2,6 +2,8 @@ package com.vantian.gui.windows.chatComponents;
 
 import java.awt.Color;
 
+import com.vantian.core.communication.IMessage;
+
 
 public class ChatRight extends javax.swing.JLayeredPane {
 
@@ -10,10 +12,15 @@ public class ChatRight extends javax.swing.JLayeredPane {
         txt.setBackground(new Color(58, 188, 253));
     }
 
-    public void setText(String text) {
-        txt.setText(text);
-        txt.setTime("10:35 PM");
-
+    public void setText(IMessage text) {
+        try {
+            txt.setText(text.get());
+            txt.setTime(text.getTime());    //  Testing
+        } catch (Exception e) {
+            System.out.println(" [x] Exception in Client. " + e);
+            e.printStackTrace(System.err);
+            System.exit(1);
+        }
     }
 
     @SuppressWarnings("unchecked")

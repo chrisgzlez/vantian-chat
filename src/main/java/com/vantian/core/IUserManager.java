@@ -1,5 +1,6 @@
 package com.vantian.core;
 import java.rmi.*;
+import java.util.Set;
 
 /**
  * IUserManager
@@ -10,5 +11,6 @@ public interface IUserManager extends Remote {
     public boolean logIn(IUser user, IPassword passwd) throws RemoteException;
     public boolean logOut(IUser user, IPassword passwd) throws RemoteException;
     public boolean isRegistered(IUser user) throws RemoteException;
+    public Set<String> getUsersRegistered() throws RemoteException;
 }
 

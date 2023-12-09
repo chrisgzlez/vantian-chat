@@ -1,6 +1,8 @@
 package com.vantian.gui.windows;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.vantian.core.IUser;
+import com.vantian.gui.MainWindow;
 import com.vantian.gui.tabbed.TabbedForm;
 import com.vantian.gui.tabbed.WindowsTabbed;
 import net.miginfocom.swing.MigLayout;
@@ -14,6 +16,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.Map.Entry;
 
 public class NewChat extends TabbedForm {
     private DefaultComboBoxModel<String> userModel;
@@ -33,9 +37,16 @@ public class NewChat extends TabbedForm {
 
         // Crear el modelo del JComboBox
         userModel = new DefaultComboBoxModel<>();
-        userModel.addElement("Usuario1");
-        userModel.addElement("Usuario2");
-        userModel.addElement("Usuario3");
+
+        try {
+            for (String friend : MainWindow.user.getFriends().keySet()) {
+                userModel.addElement(friend);
+            }
+        } catch (Exception e) {
+            System.err.println(" [x] COuld not retrieve list of friends. " + e.getMessage());
+            e.printStackTrace(System.err);
+            return;
+        }
 
         // Crear el JComboBox con el modelo
         userComboBox = new JComboBox<>(userModel);
@@ -73,8 +84,12 @@ public class NewChat extends TabbedForm {
             public void actionPerformed(ActionEvent e) {
                 // Obtener el valor seleccionado del JComboBox
                 String usuarioSeleccionado = (String) userComboBox.getSelectedItem();
-
-                WindowsTabbed.getInstance().addTab(usuarioSeleccionado,new Chat());
+                try {
+                    IUser userSelected = MainWindow.user.getFriends().get(usuarioSeleccionado);
+                    WindowsTabbed.getInstance().addTab(usuarioSeleccionado,new Chat(userSelected));
+                } catch (Exception ex) {
+                    return;
+                }
 
             }
         });
