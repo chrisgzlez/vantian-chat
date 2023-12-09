@@ -10,6 +10,9 @@ import javax.swing.*;
 
 import com.vantian.gui.drawer.DrawerBuilder;
 import raven.drawer.Drawer;
+
+import com.vantian.core.IUser;
+import com.vantian.core.IUserManager;
 import com.vantian.gui.Login.Login;
 import raven.popup.GlassPanePopup;
 import com.vantian.gui.tabbed.WindowsTabbed;
@@ -19,12 +22,18 @@ import raven.toast.Notifications;
 public class MainWindow extends javax.swing.JFrame {
 
     public static MainWindow mainWindow;
+    public static IUserManager userManager;
     private Login loginForm;
 
     /**
      * Creates new form Main
      */
-    public MainWindow() {
+    public MainWindow(IUserManager userManager) {
+        if (userManager == null) {
+            System.err.println(" [x] Null User Manager. Exiting...");
+            System.exit(1);
+        }
+        MainWindow.userManager = userManager;
         initComponents();
         init();
     }
@@ -92,7 +101,7 @@ public class MainWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public static void main(String args[]) {
+    public void run() {
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
