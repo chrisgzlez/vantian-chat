@@ -28,7 +28,7 @@ public class Register extends JPanel {
         username = new JTextField();
         password = new JPasswordField();
         checkPasswd = new JPasswordField();
-        registerButton = new JButton("Sing up");
+        registerButton = new JButton("Sign up");
 
         JPanel panel = new JPanel(new MigLayout("wrap,fillx,insets 35 45 30 45","[fill,360]"));
         panel.putClientProperty(FlatClientProperties.STYLE,
@@ -70,7 +70,7 @@ public class Register extends JPanel {
         registerButton.addActionListener((e -> {
             if(username.getText().isEmpty()) {
                 MessageAlerts.getInstance().showMessage(
-                    "Sing Up Incorrecto", "Debe de introducir un nombre de usuario valido",
+                    "Sign Up Incorrecto", "Debe de introducir un nombre de usuario valido",
                     MessageAlerts.MessageType.ERROR
                 );
                 return;
@@ -78,7 +78,7 @@ public class Register extends JPanel {
 
             if(password.getPassword().length == 0) {
                 MessageAlerts.getInstance().showMessage(
-                    "Sing Up Incorrecto", "Debe de introducir una contraseña valida",
+                    "Sign Up Incorrecto", "Debe de introducir una contraseña valida",
                     MessageAlerts.MessageType.ERROR
                 );
                 return;
@@ -88,7 +88,7 @@ public class Register extends JPanel {
 
             if (! passwd.equals(checkPassword)) {
                 MessageAlerts.getInstance().showMessage(
-                    "Sing Up Incorrecto", "Las contraseñas deben de coincidir",
+                    "Sign Up Incorrecto", "Las contraseñas deben de coincidir",
                     MessageAlerts.MessageType.ERROR
                 );
                 return;
@@ -100,7 +100,7 @@ public class Register extends JPanel {
                 IUser user = new User(username.getText());
                 if(MainWindow.userManager.isRegistered(user)) {
                     MessageAlerts.getInstance().showMessage(
-                        "Sing Up Incorrecto", "Usuario ya esta registrado",
+                        "Sign Up Incorrecto", "Usuario ya esta registrado",
                         MessageAlerts.MessageType.ERROR, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
                             @Override
                             public void action(PopupController popupController, int i) {
@@ -122,11 +122,11 @@ public class Register extends JPanel {
 
             //error alerta de error
             if (!success) {
-                MessageAlerts.getInstance().showMessage("Sing Up Incorrecto", "Los parametros proprocionados a la hora de realizar el registro no son correctos, vuelva a intentarlo",
+                MessageAlerts.getInstance().showMessage("Sign Up Incorrecto", "Los parametros proprocionados a la hora de realizar el registro no son correctos, vuelva a intentarlo",
                 MessageAlerts.MessageType.ERROR);
             } else {
                 //acierto en la base de datos
-                MessageAlerts.getInstance().showMessage("Sing Up Correcto", "Sera redirigido a la ventana de login, para que inicie sesion",
+                MessageAlerts.getInstance().showMessage("Sign Up Correcto", "Sera redirigido a la ventana de login, para que inicie sesion",
                         MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
                             @Override
                             public void action(PopupController popupController, int i) {
