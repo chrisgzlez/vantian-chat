@@ -36,7 +36,6 @@ public class Client {
 
             System.out.println(" [*] Initializing GUI...");
             MainWindow gui = new MainWindow(userManager);
-            gui.run();
 
 
         } catch (Exception e) {

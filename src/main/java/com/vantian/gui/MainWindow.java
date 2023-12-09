@@ -34,8 +34,17 @@ public class MainWindow extends javax.swing.JFrame {
             System.exit(1);
         }
         MainWindow.userManager = userManager;
-        initComponents();
-        init();
+        
+        FlatRobotoFont.install();
+        FlatLaf.registerCustomDefaultsSource("themes");
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        FlatMacDarkLaf.setup();
+        java.awt.EventQueue.invokeLater(() -> {
+            initComponents();
+            init();
+            MainWindow.mainWindow = this;
+            MainWindow.mainWindow.setVisible(true);
+        });
     }
 
     private void init() {
@@ -101,16 +110,6 @@ public class MainWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void run() {
-        FlatRobotoFont.install();
-        FlatLaf.registerCustomDefaultsSource("themes");
-        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-        FlatMacDarkLaf.setup();
-        java.awt.EventQueue.invokeLater(() -> {
-            mainWindow = new MainWindow();
-            mainWindow.setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
