@@ -79,9 +79,18 @@ public class PostgresManager implements IDBManager {
 
 	}
     public PreparedStatement requestFriend() {
+        return this.conn.preparedStatement(
+            "INSERT INTO requests " + 
+            "VALUES (?, ?, 'Pending', ?, ?)"
+        );
 
 	}
     public PreparedStatement acceptFriendRequest() {
+        return this.conn.preparedStatement(
+            "UPDATE requests " + 
+            "SET request_status = 'Active' " +
+            "WHERE user_accepter = ? and user_requester = ?"
+        );
 
 	}
     public PreparedStatement declineFriendRequest() {
