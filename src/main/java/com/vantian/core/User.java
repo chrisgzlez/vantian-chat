@@ -45,7 +45,7 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
     }
 
 
-    public void send(ICommunicate sender, IMessage mssg) {
+    public void send(ICommunicate sender, IMessage mssg) throws RemoteException {
         String senderId = sender.getId();
         Queue<IMessage> q = this.mssgQueue.get(senderId);
         if (q == null) {
@@ -58,11 +58,11 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
 
     // Returns first element in queue.
     // It returns only ONE IMessage or Null if queue is empty
-    public IMessage receive(ICommunicate sender){
+    public IMessage receive(ICommunicate sender) throws RemoteException {
         return this.mssgQueue.get(sender.getId()).poll();
 	}
 
-    public String getId() {
+    public String getId() throws RemoteException {
         return this.getUserName();
     } 
 }
