@@ -1,4 +1,4 @@
-package com.vantian.core;
+package com.vantian.core.communication;
 
 /**
  * ICommunicate
