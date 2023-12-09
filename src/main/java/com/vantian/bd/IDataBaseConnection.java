@@ -2,6 +2,7 @@ package com.vantian.bd;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Set;
 
 public interface IDataBaseConnection {
 
@@ -11,5 +12,5 @@ public interface IDataBaseConnection {
     public PreparedStatement preparedStatement(String query);
 
     //Metodo para cerrar la conexión de forma segura
-    void closeConnection();
+    public void closeConnection();
 }
