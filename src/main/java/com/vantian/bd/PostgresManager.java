@@ -67,4 +67,25 @@ public class PostgresManager implements IDBManager {
             "SELECT username FROM users"
         );
     }
+
+    public PreparedStatement getFriends() {
+        return this.conn.preparedStatement(
+                "SELECT user_requester as u1, user_accepter as u2 " 
+                + "FROM requests WHERE "
+                + "(user_requester = ? and request_status = 'Active') "
+                + "or "
+                + "(user_accepter = ? and request_status = 'Active') "
+        );
+
+	}
+    public PreparedStatement requestFriend() {
+
+	}
+    public PreparedStatement acceptFriendRequest() {
+
+	}
+    public PreparedStatement declineFriendRequest() {
+
+	}
+
 }
