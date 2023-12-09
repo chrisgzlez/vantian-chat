@@ -84,8 +84,12 @@ public class NewChat extends TabbedForm {
             public void actionPerformed(ActionEvent e) {
                 // Obtener el valor seleccionado del JComboBox
                 String usuarioSeleccionado = (String) userComboBox.getSelectedItem();
-
-                WindowsTabbed.getInstance().addTab(usuarioSeleccionado,new Chat());
+                try {
+                    IUser userSelected = MainWindow.user.getFriends().get(usuarioSeleccionado);
+                    WindowsTabbed.getInstance().addTab(usuarioSeleccionado,new Chat(userSelected));
+                } catch (Exception ex) {
+                    return;
+                }
 
             }
         });
