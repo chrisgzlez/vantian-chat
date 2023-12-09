@@ -52,11 +52,11 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
     public boolean logIn(IUser user, IPassword passwd) {
         try {
             if(!this.isRegistered(user)){
-                System.err.println(" [v] Client " + user.getUserName() + " not signed in");
+                System.err.println(" [x] Client " + user.getUserName() + " not signed in");
                 return false;
             }
             if(!this.validateCredentials(user, passwd)) {
-                System.err.println(" [v] Client " + user.getUserName() + " wrong password");
+                System.err.println(" [x] Client " + user.getUserName() + " wrong password");
                 return false;
             }
             String username = user.getUserName();

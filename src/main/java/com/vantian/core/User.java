@@ -30,18 +30,10 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
 
     public void notifyLogin(IUser user) throws RemoteException {
         this.loggedFriends.put(user.getUserName(), user);
-        System.out.println("----Friends (Notifying) of " + this.userName  + "-----");
-        for (Entry<String, IUser> e : this.loggedFriends.entrySet()) {
-            System.out.println(" - " + e.getKey());
-        }
     }
 
     public void updateFriends(HashMap<String, IUser> friends) throws RemoteException {
         this.loggedFriends = friends;
-        System.out.println("----Friends (Updating)" + this.userName  + "-----");
-        for (Entry<String, IUser> e : this.loggedFriends.entrySet()) {
-            System.out.println(" - " + e.getKey());
-        }
     }
 
 
@@ -59,6 +51,10 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
     // Returns first element in queue.
     // It returns only ONE IMessage or Null if queue is empty
     public IMessage receive(ICommunicate sender) throws RemoteException {
+        Queue<IMessage> q = this.mssgQueue.get(sender.getId());
+        if (q == null) {
+            return null;
+        }
         return this.mssgQueue.get(sender.getId()).poll();
 	}
 
