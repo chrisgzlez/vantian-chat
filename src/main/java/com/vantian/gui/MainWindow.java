@@ -6,11 +6,16 @@ import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
+
 import javax.swing.*;
 
 import com.vantian.gui.drawer.DrawerBuilder;
 import raven.drawer.Drawer;
 
+import com.vantian.core.IPassword;
 import com.vantian.core.IUser;
 import com.vantian.core.IUserManager;
 import com.vantian.gui.Login.Login;
@@ -24,6 +29,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static MainWindow mainWindow;
     public static IUserManager userManager;
     public static IUser user;
+    public static IPassword userPassword;
     private Login loginForm;
 
     /**
@@ -44,6 +50,18 @@ public class MainWindow extends javax.swing.JFrame {
             initComponents();
             init();
             MainWindow.mainWindow = this;
+            MainWindow.mainWindow.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    try {
+                        
+                        MainWindow.userManager.logOut(MainWindow.user, MainWindow.userPassword);
+                    } catch (RemoteException ex) {
+                        System.err.println(" [x] Error en logout. " + ex.getMessage());
+                        System.exit(1);
+                    }
+                }
+            });
             MainWindow.mainWindow.setVisible(true);
         });
     }
@@ -51,8 +69,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void init() {
         GlassPanePopup.install(this);
         Notifications.getInstance().setJFrame(this);
-        DrawerBuilder myDrawerBuilder = new DrawerBuilder();
-        Drawer.getInstance().setDrawerBuilder(myDrawerBuilder);
         WindowsTabbed.getInstance().install(this, body);
         login();
     }
@@ -70,6 +86,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void showMainForm() {
+        DrawerBuilder myDrawerBuilder = new DrawerBuilder();
+        Drawer.getInstance().setDrawerBuilder(myDrawerBuilder);
         WindowsTabbed.getInstance().showTabbed(true);
         setContentPane(body);
         revalidate();
@@ -93,6 +111,11 @@ public class MainWindow extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //////////////////
+            // Puedes agregar un WindowListener para realizar acciones cuando la ventana se cierre
+        
+
+        //////////////////
 
         body.setLayout(new java.awt.BorderLayout());
 

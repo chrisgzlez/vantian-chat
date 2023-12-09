@@ -32,6 +32,15 @@ public class User extends UnicastRemoteObject implements IUser {
         this.loggedFriends.put(user.getUserName(), user);
     }
 
+    public void notifyLogout(IUser user) throws RemoteException {
+        this.loggedFriends.remove(user.getUserName());
+
+    }
+
+    public HashMap<String, IUser> getFriends() throws RemoteException {
+        return this.loggedFriends;
+    }
+
     public void updateFriends(HashMap<String, IUser> friends) throws RemoteException {
         this.loggedFriends = friends;
     }
