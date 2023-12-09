@@ -10,6 +10,9 @@ import javax.swing.*;
 
 import com.vantian.gui.drawer.DrawerBuilder;
 import raven.drawer.Drawer;
+
+import com.vantian.core.IUser;
+import com.vantian.core.IUserManager;
 import com.vantian.gui.Login.Login;
 import raven.popup.GlassPanePopup;
 import com.vantian.gui.tabbed.WindowsTabbed;
@@ -19,14 +22,29 @@ import raven.toast.Notifications;
 public class MainWindow extends javax.swing.JFrame {
 
     public static MainWindow mainWindow;
+    public static IUserManager userManager;
     private Login loginForm;
 
     /**
      * Creates new form Main
      */
-    public MainWindow() {
-        initComponents();
-        init();
+    public MainWindow(IUserManager userManager) {
+        if (userManager == null) {
+            System.err.println(" [x] Null User Manager. Exiting...");
+            System.exit(1);
+        }
+        MainWindow.userManager = userManager;
+        
+        FlatRobotoFont.install();
+        FlatLaf.registerCustomDefaultsSource("themes");
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        FlatMacDarkLaf.setup();
+        java.awt.EventQueue.invokeLater(() -> {
+            initComponents();
+            init();
+            MainWindow.mainWindow = this;
+            MainWindow.mainWindow.setVisible(true);
+        });
     }
 
     private void init() {
@@ -92,16 +110,6 @@ public class MainWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public static void main(String args[]) {
-        FlatRobotoFont.install();
-        FlatLaf.registerCustomDefaultsSource("themes");
-        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
-        FlatMacDarkLaf.setup();
-        java.awt.EventQueue.invokeLater(() -> {
-            mainWindow = new MainWindow();
-            mainWindow.setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;

@@ -82,18 +82,18 @@ public class Login extends JPanel {
         panel.add(password);
         panel.add(rememberMe,"grow 0");
         panel.add(login,"gapy 10");
-        //metemos el singup
-        panel.add(SingUp(),"gapy 10");
+        //metemos el signup
+        panel.add(SignUp(),"gapy 10");
 
         add(panel);
 
     }
 
-    //Jpanel para el singup
-    private Component SingUp(){
+    //Jpanel para el signup
+    private Component SignUp(){
         JPanel panel= new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
         panel.putClientProperty(FlatClientProperties.STYLE, "" + "background:null");
-        JButton register = new JButton("<html><a href=\"#\">Sing up</a></html>");
+        JButton register = new JButton("<html><a href=\"#\">Sign up</a></html>");
         register.putClientProperty(FlatClientProperties.STYLE, "" + "border:3,3,3,3");
 
         //cursor

@@ -1,6 +1,10 @@
 package com.vantian.gui.Login;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.sun.tools.javac.Main;
+import com.vantian.core.IUser;
+import com.vantian.core.Password;
+import com.vantian.core.User;
 import com.vantian.gui.MainWindow;
 import net.miginfocom.swing.MigLayout;
 import raven.alerts.MessageAlerts;
@@ -9,6 +13,7 @@ import raven.popup.component.PopupController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.rmi.RemoteException;
 
 public class Register extends JPanel {
 
@@ -63,23 +68,75 @@ public class Register extends JPanel {
                 "innerFocusWidth:0");
 
         registerButton.addActionListener((e -> {
-            //llamamos a la gui de register
-            //control de que el usuario este verificado, si no alerta
+            if(username.getText().isEmpty()) {
+                MessageAlerts.getInstance().showMessage(
+                    "Sing Up Incorrecto", "Debe de introducir un nombre de usuario valido",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
 
-            //error alerta de error
-            //MessageAlerts.getInstance().showMessage("Sing Up Incorrecto", "Los parametros proprocionados a la hora de realizar el registro no son correctos, vuelva a intentarlo",
-            //MessageAlerts.MessageType.ERROR);
+            if(password.getPassword().length == 0) {
+                MessageAlerts.getInstance().showMessage(
+                    "Sing Up Incorrecto", "Debe de introducir una contraseña valida",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
+            String passwd = new String(password.getPassword());
+            String checkPassword = new String(checkPasswd.getPassword());
 
-            //acierto en la base de datos
-            MessageAlerts.getInstance().showMessage("Sing Up Correcto", "Sera redirigido a la ventana de login, para que inicie sesion",
-                    MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
-                        @Override
-                        public void action(PopupController popupController, int i) {
-                            if(i==MessageAlerts.OK_OPTION){
-                                MainWindow.mainWindow.mostrarRegister(new Login());
+            if (! passwd.equals(checkPassword)) {
+                MessageAlerts.getInstance().showMessage(
+                    "Sing Up Incorrecto", "Las contraseñas deben de coincidir",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
+
+            boolean success = false;
+
+            try {
+                IUser user = new User(username.getText());
+                if(MainWindow.userManager.isRegistered(user)) {
+                    MessageAlerts.getInstance().showMessage(
+                        "Sing Up Incorrecto", "Usuario ya esta registrado",
+                        MessageAlerts.MessageType.ERROR, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
+                            @Override
+                            public void action(PopupController popupController, int i) {
+                                if(i==MessageAlerts.OK_OPTION){
+                                    MainWindow.mainWindow.mostrarRegister(new Login());
+                                }
                             }
                         }
-                    });
+                    );
+                    return;
+
+                }
+                success = MainWindow.userManager.signIn(user, new Password(passwd));
+            } catch (RemoteException ex) {
+                System.err.println(" [x] Error signing in user. " + ex.getMessage());
+                ex.printStackTrace(System.err);
+                System.exit(1);
+            }
+
+            //error alerta de error
+            if (!success) {
+                MessageAlerts.getInstance().showMessage("Sing Up Incorrecto", "Los parametros proprocionados a la hora de realizar el registro no son correctos, vuelva a intentarlo",
+                MessageAlerts.MessageType.ERROR);
+            } else {
+                //acierto en la base de datos
+                MessageAlerts.getInstance().showMessage("Sing Up Correcto", "Sera redirigido a la ventana de login, para que inicie sesion",
+                        MessageAlerts.MessageType.SUCCESS, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
+                            @Override
+                            public void action(PopupController popupController, int i) {
+                                if(i==MessageAlerts.OK_OPTION){
+                                    MainWindow.mainWindow.mostrarRegister(new Login());
+                                }
+                            }
+                        });
+            }
+
         }));
 
 
