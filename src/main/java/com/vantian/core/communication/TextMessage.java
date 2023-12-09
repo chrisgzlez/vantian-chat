@@ -1,21 +1,20 @@
 package com.vantian.core.communication;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.security.InvalidParameterException;
 
 /**
  * Message
  */
-public class TextMessage implements IMessage {
+public class TextMessage extends UnicastRemoteObject implements IMessage {
     String mssg;
 
-    public TextMessage(String text) throws InvalidParameterException {
-        if (text == null) {
-           throw new InvalidParameterException(" [x] Contents of message cant be null"); 
-        }
+    public TextMessage(String text) throws RemoteException {
         this.mssg = text;
     }
 
-    public String get() {
+    public String get() throws RemoteException {
         return this.mssg;
     }
 
