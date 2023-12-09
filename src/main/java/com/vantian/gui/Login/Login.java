@@ -2,6 +2,10 @@ package com.vantian.gui.Login;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
+
+import com.vantian.core.IUser;
+import com.vantian.core.Password;
+import com.vantian.core.User;
 import com.vantian.gui.MainWindow;
 import raven.alerts.MessageAlerts;
 import raven.popup.component.PopupCallbackAction;
@@ -9,6 +13,7 @@ import raven.popup.component.PopupController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.rmi.RemoteException;
 
 public class Login extends JPanel {
 
@@ -45,10 +50,58 @@ public class Login extends JPanel {
         );
 
         login.addActionListener((e -> {
+            if(username.getText().isEmpty()) {
+                MessageAlerts.getInstance().showMessage(
+                    "Log In Incorrecto", "Debe de introducir un nombre de usuario valido",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
+
+            if(password.getPassword().length == 0) {
+                MessageAlerts.getInstance().showMessage(
+                    "Log In Incorrecto", "Debe de introducir una contraseña valida",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
+            String passwd = new String(password.getPassword());
+            boolean success = false;
+
+            try {
+                IUser user = new User(username.getText());
+                if(! MainWindow.userManager.isRegistered(user)) {
+                    MessageAlerts.getInstance().showMessage(
+                        "Log In Incorrecto", "Usuario no registrado",
+                        MessageAlerts.MessageType.ERROR, MessageAlerts.OK_CANCEL_OPTION, new PopupCallbackAction() {
+                            @Override
+                            public void action(PopupController popupController, int i) {
+                                if(i==MessageAlerts.OK_OPTION){
+                                    MainWindow.mainWindow.mostrarRegister(new Register());
+                                }
+                            }
+                        }
+                    );
+                    return;
+                }
+                success = MainWindow.userManager.logIn(user, new Password(passwd));
+            } catch (RemoteException ex) {
+                System.err.println(" [x] Error signing in user. " + ex.getMessage());
+                ex.printStackTrace(System.err);
+                System.exit(1);
+            }
+
             //control de que el usuario este verificado, si no alerta
             //error alerta de error
             //MessageAlerts.getInstance().showMessage("Login Incorrecto", "No se ha encontrado un usuario con los datos proporcionados, vuelva a intentarlo",
                     //MessageAlerts.MessageType.ERROR);
+            if (!success) {
+                MessageAlerts.getInstance().showMessage(
+                    "Log In Incorrecto", "Contraseña no valida",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
 
             //acierto en la base de datos
             MessageAlerts.getInstance().showMessage("Login Correcto", "Disfrute de su experiencia",
