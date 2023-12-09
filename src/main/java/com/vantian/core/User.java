@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 /**
  * User
  */
-public class User extends UnicastRemoteObject implements IUser {
+public class User extends UnicastRemoteObject implements IUser, ICommunicate {
     private String userName;
     private HashMap<String, IUser> loggedFriends;
     public User(String name) throws RemoteException {
@@ -38,4 +38,13 @@ public class User extends UnicastRemoteObject implements IUser {
             System.out.println(" - " + e.getKey());
         }
     }
+
+
+    public void sendTo(ICommunicate dest, IMessage mssg){
+        return;
+	}
+
+    public IMessage receiveFrom(ICommunicate sender){
+        return null;
+	}
 }
