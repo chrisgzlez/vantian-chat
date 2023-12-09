@@ -87,8 +87,16 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
     }
 
     public boolean logOut(IUser user, IPassword passwd) throws RemoteException {
-        return false;
+        boolean success = this.loggedUsers.remove(user.getUserName()) != null;
+        if (!success) {
+            return false;
+        }
 
+        for (Entry<String,IUser> entry : user.getFriends().entrySet()) {
+            entry.getValue().notifyLogout(user);
+        }
+
+        return true;
     }
 
     public boolean isRegistered(IUser user) {
