@@ -17,6 +17,6 @@ public interface IUserManager extends Remote {
     public void acceptFriendRequest(String accepter, String requester) throws RemoteException;
     public void declineFriendRequest(String accepter, String requester) throws RemoteException;
     public Set<String> getPendingRequests(IUser user, IPassword passwd) throws RemoteException;
-    public HashMap<String, IUser> getFriendsOnline(IUser user) throws RemoteException {
-};
+    public HashMap<String, IUser> getFriendsOnline(IUser user) throws RemoteException;
+}
 
