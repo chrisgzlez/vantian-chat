@@ -15,5 +15,6 @@ public interface IUserManager extends Remote {
     public void sendFriendRequest(String requester, String requested) throws RemoteException;
     public void acceptFriendRequest(String accepter, String requester) throws RemoteException;
     public void declineFriendRequest(String accepter, String requester) throws RemoteException;
-}
+    public Set<String> getPendingRequests(IUser user, IPassword passwd) throws RemoteException;
+};
 
