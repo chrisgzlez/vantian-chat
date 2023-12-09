@@ -62,24 +62,19 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
                 return false;
             }
             String username = user.getUserName();
+            HashMap<String, IUser> userFriends = this.getFriendsOnline(user);
 
-            user.updateFriends(this.loggedUsers);
+            user.updateFriends(userFriends);
             this.loggedUsers.put(username, user);
 
-            for (Entry<String,IUser> entry : this.loggedUsers.entrySet()) {
+            for (Entry<String,IUser> entry : userFriends.entrySet()) {
                 String loggedUserName =  entry.getKey();
                 if (loggedUserName != username) {
                     entry.getValue().notifyLogin(user);
                 }
-                
             }
 
             System.out.println(" [v] Client " + user.getUserName() + " succesfully logged in and notified");
-            System.out.println("----Connected Clients-----");
-            for (Entry<String, IUser> e : this.loggedUsers.entrySet()) {
-                System.out.println(" - " + e.getKey());
-            }
-            System.out.println("--------------------------");
             return true;
         } catch (Exception e) {
             System.out.println(" [x] Could not reach user to register it... " + e.getMessage());
@@ -149,6 +144,67 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         }
         return users;
     }
+
+    private HashMap<String, IUser> getFriendsOnline(IUser user) throws RemoteException {
+        HashMap<String, IUser> friends = new HashMap<>();
+        PreparedStatement stmt = this.dbManager.getFriends();
+        try {
+            stmt.setString(1, user.getUserName());
+            stmt.setString(2, user.getUserName());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                String username = rs.getString(1);
+                if (username == user.getUserName()) {
+                    username = rs.getString(2);
+                }
+                IUser friend = this.loggedUsers.get(username);
+                if (friend != null) {
+                    friends.put(username, friend);
+                }
+            }
+            return friends;
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to check if its registered... " + e.getMessage());
+            e.printStackTrace(System.err);
+            return null;
+        }
+
+    }
+    public void sendFriendRequest(String requester, String requested) {
+        PreparedStatement stmt = this.dbManager.requestFriend();
+        try {
+            stmt.setString(1, requester);
+            stmt.setString(2, requested);
+            stmt.setTimestamp(3, Timestamp.from(Instant.now()));
+            stmt.setTimestamp(4, Timestamp.from(Instant.now()));
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to check if its registered... " + e.getMessage());
+            e.printStackTrace(System.err);
+        }
+
+	}
+    public void acceptFriendRequest(String accepter, String requester) {
+        PreparedStatement stmt = this.dbManager.acceptFriendRequest();
+        try {
+            stmt.setString(1, accepter);
+            stmt.setString(2, requester);
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to accept friend request... " + e.getMessage());
+            e.printStackTrace(System.err);
+        }
+
+	}
+    public void declineFriendRequest(String accepter, String requester) {
+        PreparedStatement stmt = this.dbManager.declineFriendRequest();
+        try {
+            stmt.setString(1, accepter);
+            stmt.setString(2, requester);
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to decline friend request... " + e.getMessage());
+            e.printStackTrace(System.err);
+        }
+
+	}
 
 
 }
