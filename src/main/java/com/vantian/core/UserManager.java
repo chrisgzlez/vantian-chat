@@ -69,7 +69,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
 
             for (Entry<String,IUser> entry : userFriends.entrySet()) {
                 String loggedUserName =  entry.getKey();
-                if (loggedUserName != username) {
+                if (! loggedUserName.equals(username)) {
                     entry.getValue().notifyLogin(user);
                 }
             }
@@ -154,11 +154,14 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 String username = rs.getString(1);
-                if (username == user.getUserName()) {
+                System.out.println(" -- " + username + " me: " + user.getUserName());
+                if (username.equals(user.getUserName())) {
                     username = rs.getString(2);
+                    System.out.println(" -Changed user- " + username);
                 }
                 IUser friend = this.loggedUsers.get(username);
                 if (friend != null) {
+                    System.out.println("Friend online");
                     friends.put(username, friend);
                 }
             }
@@ -177,6 +180,8 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             stmt.setString(2, requested);
             stmt.setTimestamp(3, Timestamp.from(Instant.now()));
             stmt.setTimestamp(4, Timestamp.from(Instant.now()));
+            stmt.executeUpdate();
+
         } catch (Exception e) {
             System.out.println(" [x] Could not reach user to check if its registered... " + e.getMessage());
             e.printStackTrace(System.err);
@@ -188,6 +193,8 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         try {
             stmt.setString(1, accepter);
             stmt.setString(2, requester);
+            stmt.executeUpdate();
+
         } catch (Exception e) {
             System.out.println(" [x] Could not reach user to accept friend request... " + e.getMessage());
             e.printStackTrace(System.err);
@@ -199,12 +206,35 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         try {
             stmt.setString(1, accepter);
             stmt.setString(2, requester);
+            stmt.executeUpdate();
+
         } catch (Exception e) {
             System.out.println(" [x] Could not reach user to decline friend request... " + e.getMessage());
             e.printStackTrace(System.err);
         }
 
 	}
+    public Set<String> getPendingRequests(IUser user, IPassword passwd) throws RemoteException {
+
+        if(!this.validateCredentials(user, passwd)) {
+            System.err.println(" [x] Client " + user.getUserName() + " wrong password");
+            return null;
+        }
+        Set<String> users = new HashSet<>();
+        PreparedStatement stmt = this.dbManager.getPendingRequests();
+        try {
+            stmt.setString(1, user.getUserName());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                users.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to get pending requests... " + e.getMessage());
+            e.printStackTrace(System.err);
+            return null;
+        }
+        return users;
+    }
 
 
 }
