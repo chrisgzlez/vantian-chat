@@ -145,7 +145,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         return users;
     }
 
-    private HashMap<String, IUser> getFriendsOnline(IUser user) throws RemoteException {
+    public HashMap<String, IUser> getFriendsOnline(IUser user) throws RemoteException {
         HashMap<String, IUser> friends = new HashMap<>();
         PreparedStatement stmt = this.dbManager.getFriends();
         try {
