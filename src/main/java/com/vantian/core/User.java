@@ -11,7 +11,7 @@ import com.vantian.core.communication.*;
 /**
  * User
  */
-public class User extends UnicastRemoteObject implements IUser, ICommunicate {
+public class User extends UnicastRemoteObject implements IUser {
     private String userName;
     private HashMap<String, IUser> loggedFriends;
     private HashMap<String,Queue<IMessage>> mssgQueue;
