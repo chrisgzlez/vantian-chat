@@ -82,14 +82,15 @@ public class AgregarAmigo extends TabbedForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //comprobacion de solicitud
+                try {
+                    MainWindow.userManager.sendFriendRequest(MainWindow.user.getUserName(), (String)userComboBox.getSelectedItem());
 
-                //si existe el usuario y se realiza correctamente la insercion
-                MessageAlerts.getInstance().showMessage("Solicitud Correcta", "Ha sido enviada su solicitud de amistad",
-                MessageAlerts.MessageType.SUCCESS);
-
-                //si no
-                MessageAlerts.getInstance().showMessage("Solicitud Incorrecta", "No se ha encontrado un usuario con los datos proporcionados, vuelva a intentarlo",
-                        MessageAlerts.MessageType.ERROR);
+                    MessageAlerts.getInstance().showMessage("Solicitud Correcta", "Ha sido enviada su solicitud de amistad",
+                    MessageAlerts.MessageType.SUCCESS);
+                } catch (Exception ex) {
+                    System.out.println(" [x] Exception in Client. " + ex.getMessage());
+                    ex.printStackTrace(System.err);
+                }
 
             }
         });
