@@ -1,11 +1,13 @@
 -- User Table
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     username VARCHAR (50) PRIMARY KEY  NOT NULL,
     password VARCHAR (120) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL
 );
+
+
 
 
 -- Indexes for performance
