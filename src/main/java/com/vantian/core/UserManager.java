@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import com.vantian.bd.IDBManager;
@@ -130,6 +132,22 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             return false;
         }
 
+    }
+
+    public Set<String> getUsersRegistered() throws RemoteException {
+        Set<String> users = new HashSet<>();
+        PreparedStatement stmt = this.dbManager.getAllUsersStmt();
+        try {
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                users.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to check if its registered... " + e.getMessage());
+            e.printStackTrace(System.err);
+            return null;
+        }
+        return users;
     }
 
 
