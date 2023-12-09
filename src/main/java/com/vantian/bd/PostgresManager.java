@@ -100,4 +100,12 @@ public class PostgresManager implements IDBManager {
         );
 	}
 
+    public PreparedStatement getPendingRequests() {
+        return this.conn.preparedStatement(
+            "SELECT user_requester FROM requests " + 
+            "WHERE user_accepter = ? and request_status = 'Pending' "
+        );
+
+    }
+
 }

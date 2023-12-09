@@ -39,6 +39,7 @@ public class NewChat extends TabbedForm {
         userModel = new DefaultComboBoxModel<>();
 
         try {
+            MainWindow.user.updateFriends(MainWindow.userManager.getFriendsOnline(MainWindow.user));
             for (String friend : MainWindow.user.getFriends().keySet()) {
                 userModel.addElement(friend);
             }

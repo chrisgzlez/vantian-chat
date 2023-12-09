@@ -1,8 +1,10 @@
 package com.vantian.gui.windows;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.vantian.gui.MainWindow;
 import com.vantian.gui.tabbed.TabbedForm;
 import net.miginfocom.swing.MigLayout;
+import raven.alerts.MessageAlerts;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +42,16 @@ public class SolicitudesAmistad extends TabbedForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selectedRequest = requestList.getSelectedValue();
-                // Implementa la lógica de aceptación aquí
+                try {
+                    // Implementa la lógica de aceptación aquí
+                    MainWindow.userManager.acceptFriendRequest(MainWindow.user.getUserName(), selectedRequest);
+
+                    MessageAlerts.getInstance().showMessage("Solicitud de Amistad Aceptada", "",
+                    MessageAlerts.MessageType.SUCCESS);
+                } catch (Exception ex) {
+                    System.out.println(" [x] Exception in Client. " + ex.getMessage());
+                    ex.printStackTrace(System.err);
+                }
 
                 // Elimina la solicitud aceptada del modelo
                 requestListModel.removeElement(selectedRequest);
@@ -51,7 +62,16 @@ public class SolicitudesAmistad extends TabbedForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selectedRequest = requestList.getSelectedValue();
-                // Implementa la lógica de declinación aquí
+                try {
+                    // Implementa la lógica de negacion aquí
+                    MainWindow.userManager.declineFriendRequest(MainWindow.user.getUserName(), selectedRequest);
+
+                    MessageAlerts.getInstance().showMessage("Solicitud de Amistad Rechazada", "",
+                    MessageAlerts.MessageType.SUCCESS);
+                } catch (Exception ex) {
+                    System.out.println(" [x] Exception in Client. " + ex.getMessage());
+                    ex.printStackTrace(System.err);
+                }
 
                 // Elimina la solicitud aceptada del modelo
                 requestListModel.removeElement(selectedRequest);

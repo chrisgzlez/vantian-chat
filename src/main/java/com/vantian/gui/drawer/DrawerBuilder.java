@@ -12,6 +12,7 @@ import raven.drawer.component.header.SimpleHeaderData;
 import raven.drawer.component.menu.MenuAction;
 import raven.drawer.component.menu.MenuEvent;
 import raven.drawer.component.menu.SimpleMenuOption;
+import java.util.Set;
 
 public class DrawerBuilder extends SimpleDrawerBuilder {
 
@@ -54,8 +55,18 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
                         }
                         if (index==2){
                             SolicitudesAmistad solicitudes = new SolicitudesAmistad();
-                            solicitudes.addFriendRequest("Usuario1");
-                            solicitudes.addFriendRequest("Usuario2");
+                            try {
+                                Set<String> pendingRequests = MainWindow.userManager.getPendingRequests(MainWindow.user, MainWindow.userPassword);
+                                if (pendingRequests != null) {
+                                    for(String request : pendingRequests) {
+                                        solicitudes.addFriendRequest(request);
+                                    }
+                                }
+                            } catch (Exception e) {
+                                System.out.println(" [x] Could not reach user to check if its registered... " + e.getMessage());
+                                e.printStackTrace(System.err);
+                            }
+
                             WindowsTabbed.getInstance().addTab("Solicitudes de Amistad",solicitudes);
                         }
                         if (index==3){

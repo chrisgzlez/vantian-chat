@@ -21,4 +21,6 @@ public interface IDBManager {
     public PreparedStatement requestFriend();
     public PreparedStatement acceptFriendRequest();
     public PreparedStatement declineFriendRequest();
+    public PreparedStatement getPendingRequests();
+
 }
