@@ -92,6 +92,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
             return false;
         }
 
+        System.out.println(" [v] Client " + user.getUserName() + " succesfully logged out and notified");
         for (Entry<String,IUser> entry : user.getFriends().entrySet()) {
             entry.getValue().notifyLogout(user);
         }
