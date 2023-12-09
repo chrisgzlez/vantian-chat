@@ -1,6 +1,7 @@
 package com.vantian.gui.windows;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.vantian.gui.MainWindow;
 import com.vantian.gui.tabbed.TabbedForm;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -32,9 +33,19 @@ public class AgregarAmigo extends TabbedForm {
 
         // Crear el modelo del JComboBox
         userModel = new DefaultComboBoxModel<>();
-        userModel.addElement("Usuario1");
-        userModel.addElement("Usuario2");
-        userModel.addElement("Usuario3");
+
+        try {
+            String userName = MainWindow.user.getUserName();
+            for (String user : MainWindow.userManager.getUsersRegistered()) {
+                if (! user.equals(userName)) {
+                    userModel.addElement(user);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(" [x] COuld not retrieve list of friends. " + e.getMessage());
+            e.printStackTrace(System.err);
+            return;
+        }
 
         // Crear el JComboBox con el modelo
         userComboBox = new JComboBox<>(userModel);
