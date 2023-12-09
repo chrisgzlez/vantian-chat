@@ -86,6 +86,11 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         }
     }
 
+    public boolean logOut(IUser user, IPassword passwd) throws RemoteException {
+        return false;
+
+    }
+
     public boolean isRegistered(IUser user) {
         PreparedStatement statement = this.dbManager.isRegisteredStmt();
         try {
