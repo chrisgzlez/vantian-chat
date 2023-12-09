@@ -31,9 +31,9 @@ public class DrawerBuilder extends SimpleDrawerBuilder {
                 {"~MAIN~"},
                 {"New Chat"},
                 {"Agregar Amigos"},
-                {"Notificaciones"},
+                {"Solicitudes de Amistad"},
                 {"Cambiar configuracion"},
-                {"Logout"}};
+        };
 
 
         return new SimpleMenuOption()
