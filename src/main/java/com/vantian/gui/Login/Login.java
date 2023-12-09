@@ -68,8 +68,9 @@ public class Login extends JPanel {
             String passwd = new String(password.getPassword());
             boolean success = false;
 
+            IUser user = null;
             try {
-                IUser user = new User(username.getText());
+                user = new User(username.getText());
                 if(! MainWindow.userManager.isRegistered(user)) {
                     MessageAlerts.getInstance().showMessage(
                         "Log In Incorrecto", "Usuario no registrado",
@@ -91,10 +92,6 @@ public class Login extends JPanel {
                 System.exit(1);
             }
 
-            //control de que el usuario este verificado, si no alerta
-            //error alerta de error
-            //MessageAlerts.getInstance().showMessage("Login Incorrecto", "No se ha encontrado un usuario con los datos proporcionados, vuelva a intentarlo",
-                    //MessageAlerts.MessageType.ERROR);
             if (!success) {
                 MessageAlerts.getInstance().showMessage(
                     "Log In Incorrecto", "Contraseña no valida",
@@ -102,6 +99,7 @@ public class Login extends JPanel {
                 );
                 return;
             }
+            MainWindow.user = user;
 
             //acierto en la base de datos
             MessageAlerts.getInstance().showMessage("Login Correcto", "Disfrute de su experiencia",
