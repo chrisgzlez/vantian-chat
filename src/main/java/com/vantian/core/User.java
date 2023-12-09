@@ -45,7 +45,14 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
     }
 
 
-    public void send(IMessage mssg){
+    public void send(ICommunicate sender, IMessage mssg) {
+        String senderId = sender.getId();
+        Queue<IMessage> q = this.mssgQueue.get(senderId);
+        if (q == null) {
+            q = new LinkedList<>();
+        }
+        q.add(mssg);
+        this.mssgQueue.put(senderId, q);
         return;
 	}
 
