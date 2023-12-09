@@ -45,16 +45,15 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
     }
 
 
-    public void sendTo(User dest, IMessage mssg){
-        if (dest == null) {
-            return;
-        }
-
-
+    public void send(IMessage mssg){
         return;
 	}
 
-    public IMessage receiveFrom(User sender){
+    public IMessage receive(ICommunicate sender){
         return null;
 	}
+
+    public String getId() {
+        return this.getUserName();
+    } 
 }

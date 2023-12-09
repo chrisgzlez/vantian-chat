@@ -5,8 +5,10 @@ package com.vantian.core.communication;
  */
 public interface ICommunicate {
     
-    public void sendTo(ICommunicate dest, IMessage mssg);
+    public void send(IMessage mssg);
 
-    public IMessage receiveFrom(ICommunicate sender);
+    public IMessage receive(ICommunicate sender);
+
+    public String getId();
     
 }
