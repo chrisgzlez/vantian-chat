@@ -3,6 +3,8 @@ package com.vantian.core;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Map.Entry;
 
 /**
@@ -11,11 +13,13 @@ import java.util.Map.Entry;
 public class User extends UnicastRemoteObject implements IUser, ICommunicate {
     private String userName;
     private HashMap<String, IUser> loggedFriends;
+    private HashMap<String,Queue<IMessage>> mssgQueue;
     public User(String name) throws RemoteException {
         super();
 
         this.userName = name;
         this.loggedFriends = new HashMap<>();
+        this.mssgQueue = new HashMap<String, Queue<IMessage>>();
         return;
     }
 
