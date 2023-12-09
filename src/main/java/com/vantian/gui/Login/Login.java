@@ -3,6 +3,7 @@ package com.vantian.gui.Login;
 import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
 
+import com.vantian.core.IPassword;
 import com.vantian.core.IUser;
 import com.vantian.core.Password;
 import com.vantian.core.User;
@@ -69,8 +70,10 @@ public class Login extends JPanel {
             boolean success = false;
 
             IUser user = null;
+            IPassword userPasswd = null;
             try {
                 user = new User(username.getText());
+                userPasswd = new Password(passwd);
                 if(! MainWindow.userManager.isRegistered(user)) {
                     MessageAlerts.getInstance().showMessage(
                         "Log In Incorrecto", "Usuario no registrado",
@@ -85,7 +88,7 @@ public class Login extends JPanel {
                     );
                     return;
                 }
-                success = MainWindow.userManager.logIn(user, new Password(passwd));
+                success = MainWindow.userManager.logIn(user, userPasswd);
             } catch (RemoteException ex) {
                 System.err.println(" [x] Error signing in user. " + ex.getMessage());
                 ex.printStackTrace(System.err);
@@ -100,6 +103,7 @@ public class Login extends JPanel {
                 return;
             }
             MainWindow.user = user;
+            MainWindow.userPassword = userPasswd;
 
             //acierto en la base de datos
             MessageAlerts.getInstance().showMessage("Login Correcto", "Disfrute de su experiencia",
