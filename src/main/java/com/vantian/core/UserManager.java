@@ -170,7 +170,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         }
 
     }
-    public void sendFriendRequest(String requester, String requested) {
+    public void sendFriendRequest(String requester, String requested) throws RemoteException {
         PreparedStatement stmt = this.dbManager.requestFriend();
         try {
             stmt.setString(1, requester);
@@ -183,7 +183,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         }
 
 	}
-    public void acceptFriendRequest(String accepter, String requester) {
+    public void acceptFriendRequest(String accepter, String requester) throws RemoteException {
         PreparedStatement stmt = this.dbManager.acceptFriendRequest();
         try {
             stmt.setString(1, accepter);
@@ -194,7 +194,7 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         }
 
 	}
-    public void declineFriendRequest(String accepter, String requester) {
+    public void declineFriendRequest(String accepter, String requester) throws RemoteException {
         PreparedStatement stmt = this.dbManager.declineFriendRequest();
         try {
             stmt.setString(1, accepter);
