@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Map.Entry;
+import com.vantian.core.communication.*;
 
 /**
  * User
@@ -44,11 +45,16 @@ public class User extends UnicastRemoteObject implements IUser, ICommunicate {
     }
 
 
-    public void sendTo(ICommunicate dest, IMessage mssg){
+    public void sendTo(User dest, IMessage mssg){
+        if (dest == null) {
+            return;
+        }
+
+
         return;
 	}
 
-    public IMessage receiveFrom(ICommunicate sender){
+    public IMessage receiveFrom(User sender){
         return null;
 	}
 }
