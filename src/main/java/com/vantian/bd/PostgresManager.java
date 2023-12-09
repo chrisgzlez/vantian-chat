@@ -61,4 +61,10 @@ public class PostgresManager implements IDBManager {
             "VALUES (?, ?, ?, ?)"
         );
     }
+    
+    public PreparedStatement getAllUsersStmt() {
+        return this.conn.preparedStatement(
+            "SELECT username FROM users"
+        );
+    }
 }
