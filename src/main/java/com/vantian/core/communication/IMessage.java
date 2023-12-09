@@ -8,4 +8,5 @@ import java.rmi.RemoteException;
  */
 public interface IMessage extends Remote {
     public String get() throws RemoteException;
+    public String getTime() throws RemoteException;
 }

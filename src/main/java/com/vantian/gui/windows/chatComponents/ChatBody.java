@@ -1,5 +1,6 @@
 package com.vantian.gui.windows.chatComponents;
 
+import com.vantian.core.communication.IMessage;
 import com.vantian.gui.tabbed.TabbedForm;
 import com.vantian.gui.windows.swingitems.ScrollBar;
 import net.miginfocom.swing.MigLayout;
@@ -18,30 +19,6 @@ public class ChatBody extends JPanel {
     public ChatBody() {
         initComponents();
         init();
-/*
-        addItemRight("Send a text message to a group of contacts. Include photos, personalize your texts, and track who clicked your links.");
-        addItemRight("hello\nHi");
-        addItemLeft("Simpletext started as a passion project because I couldn’t find what I was looking for. Most apps were trying to do too much and ended up bloated with features I don’t need. So I built Simpletext based on a simple premise — what if there’s an app that refuses to do more, choosing instead to do just one thing, and do it well? For Simpletext, that one thing is writing.");
-        addItemLeft("hello\nerererew\newewe");
-
-        addItemRight("hello\nerererew\newewe");
-        addItemLeft("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-        addItemRight("hello\nerererew\newewe");
-
-
-        addItemRight("hello\nHi");
-
- */
-
     }
 
     private void init() {
@@ -50,7 +27,7 @@ public class ChatBody extends JPanel {
         sp.getVerticalScrollBar().setBackground(Color.darkGray);
     }
 
-    public void addItemLeft(String text) {
+    public void addItemLeft(IMessage text) {
         ChatLeft item = new ChatLeft();
         item.setText(text);
         body.add(item, "wrap, w ::80%");
@@ -59,7 +36,7 @@ public class ChatBody extends JPanel {
         body.revalidate();
     }
 
-    public void addItemRight(String text) {
+    public void addItemRight(IMessage text) {
         ChatRight item = new ChatRight();
         item.setText(text);
         body.add(item, "wrap, al right, w ::80%");

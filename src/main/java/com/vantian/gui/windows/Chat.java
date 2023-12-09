@@ -44,7 +44,7 @@ public class Chat extends TabbedForm {
             @Override
             public void sendMessage(IMessage mssg) {
                 try {
-                    chatBody.addItemRight(mssg.get());
+                    chatBody.addItemRight(mssg);
                     destUser.send(MainWindow.user, mssg);
                 } catch (Exception e) {
                     System.err.println("Exception sending mssg: " + e.getMessage());
@@ -58,7 +58,7 @@ public class Chat extends TabbedForm {
                 try {
                     for(IMessage mssg = MainWindow.user.receive(destUser); mssg != null; mssg = MainWindow.user.receive(destUser)) {
                         System.out.println("Reading message: " + mssg.get());
-                        chatBody.addItemLeft(mssg.get());
+                        chatBody.addItemLeft(mssg);
                     }
                 } catch (Exception e) {
                     System.err.println("Exception getting messages");
