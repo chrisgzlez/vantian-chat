@@ -23,6 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public static MainWindow mainWindow;
     public static IUserManager userManager;
+    public static IUser user;
     private Login loginForm;
 
     /**
