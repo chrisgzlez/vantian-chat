@@ -94,7 +94,10 @@ public class PostgresManager implements IDBManager {
 
 	}
     public PreparedStatement declineFriendRequest() {
-
+        return this.conn.preparedStatement(
+            "DELETE FROM requests " + 
+            "WHERE user_accepter = ? and user_requester = ? and request_status = 'Pending' "
+        );
 	}
 
 }
