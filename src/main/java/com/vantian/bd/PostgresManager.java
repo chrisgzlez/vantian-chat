@@ -67,4 +67,37 @@ public class PostgresManager implements IDBManager {
             "SELECT username FROM users"
         );
     }
+
+    public PreparedStatement getFriends() {
+        return this.conn.preparedStatement(
+                "SELECT user_requester as u1, user_accepter as u2 " 
+                + "FROM requests WHERE "
+                + "(user_requester = ? and request_status = 'Active') "
+                + "or "
+                + "(user_accepter = ? and request_status = 'Active') "
+        );
+
+	}
+    public PreparedStatement requestFriend() {
+        return this.conn.preparedStatement(
+            "INSERT INTO requests " + 
+            "VALUES (?, ?, 'Pending', ?, ?)"
+        );
+
+	}
+    public PreparedStatement acceptFriendRequest() {
+        return this.conn.preparedStatement(
+            "UPDATE requests " + 
+            "SET request_status = 'Active' " +
+            "WHERE user_accepter = ? and user_requester = ?"
+        );
+
+	}
+    public PreparedStatement declineFriendRequest() {
+        return this.conn.preparedStatement(
+            "DELETE FROM requests " + 
+            "WHERE user_accepter = ? and user_requester = ? and request_status = 'Pending' "
+        );
+	}
+
 }

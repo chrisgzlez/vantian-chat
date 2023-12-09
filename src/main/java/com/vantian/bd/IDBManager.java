@@ -16,5 +16,9 @@ public interface IDBManager {
     public PreparedStatement createUserStmt();
 
     public PreparedStatement getAllUsersStmt();
-    
+
+    public PreparedStatement getFriends();
+    public PreparedStatement requestFriend();
+    public PreparedStatement acceptFriendRequest();
+    public PreparedStatement declineFriendRequest();
 }
