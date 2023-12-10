@@ -107,5 +107,13 @@ public class PostgresManager implements IDBManager {
         );
 
     }
+    public PreparedStatement updatePassword() {
+        return this.conn.preparedStatement(
+            "UPDATE users " + 
+            "SET password = ? " +
+            "WHERE username = ?"
+        );
+
+    }
 
 }
