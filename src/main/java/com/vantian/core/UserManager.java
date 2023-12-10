@@ -236,6 +236,26 @@ public class UserManager extends UnicastRemoteObject implements IUserManager {
         return users;
     }
 
+    public void updatePassword(IUser user, IPassword oldPasswd, IPassword newPasswd) throws RemoteException {
+
+        if(!this.validateCredentials(user, oldPasswd)) {
+            System.err.println(" [x] Client " + user.getUserName() + " wrong password");
+            return;
+        }
+
+        PreparedStatement stmt = this.dbManager.updatePassword();
+        try {
+            stmt.setString(1, newPasswd.get());
+            stmt.setString(2, user.getUserName());
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(" [x] Could not reach user to decline friend request... " + e.getMessage());
+            e.printStackTrace(System.err);
+        }
+
+    }
+
 
 }
 

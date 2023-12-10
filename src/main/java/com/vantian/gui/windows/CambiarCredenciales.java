@@ -2,6 +2,9 @@ package com.vantian.gui.windows;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.vantian.gui.Login.Login;
+import com.vantian.core.IPassword;
+import com.vantian.core.Password;
+import com.vantian.core.User;
 import com.vantian.gui.MainWindow;
 import com.vantian.gui.tabbed.TabbedForm;
 import net.miginfocom.swing.MigLayout;
@@ -67,14 +70,49 @@ public class CambiarCredenciales extends TabbedForm {
         changePassword.addActionListener((e -> {
             //llamamos a la gui de register
             //control de que el usuario este verificado, si no alerta
+            IPassword oldpasswd = null;
+            try {
+                oldpasswd = new Password(new String(password.getPassword()));
+                boolean loggedIn = MainWindow.userManager.logIn(new User(username.getText()), oldpasswd);
+
+                if (!loggedIn) {
+                    return;
+                }
+            } catch (Exception ex) {
+                System.out.println(" [x] Exception in Client. " + e);
+                ex.printStackTrace(System.err);
+                return;
+            }
+
+            if(newpassword.getPassword().length == 0) {
+                MessageAlerts.getInstance().showMessage(
+                    "Sign Up Incorrecto", "Debe de introducir una contraseña valida",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
+            String passwd = new String(newpassword.getPassword());
+            String checkPassword = new String(checknewPasswd.getPassword());
+
+            if (! passwd.equals(checkPassword)) {
+                MessageAlerts.getInstance().showMessage(
+                    "Sign Up Incorrecto", "Las contraseñas deben de coincidir",
+                    MessageAlerts.MessageType.ERROR
+                );
+                return;
+            }
+            try {
+                
+                MainWindow.userManager.updatePassword(new User(username.getText()), oldpasswd, new Password(passwd));
+            } catch (Exception ex) {
+                System.out.println(" [x] Exception in Client. " + e);
+                ex.printStackTrace(System.err);
+                return;
+            }
 
             //error alerta de error
-            //MessageAlerts.getInstance().showMessage("Sing Up Incorrecto", "Los parametros proprocionados a la hora de realizar el registro no son correctos, vuelva a intentarlo",
-            //MessageAlerts.MessageType.ERROR);
-
-            //error alerta de error
-            MessageAlerts.getInstance().showMessage("Cambio de contraseña", "Los parametros proprocionados a la hora de realizar el cambio de contraseña no son correctos, vuelva a intentarlo",
-            MessageAlerts.MessageType.ERROR);
+            MessageAlerts.getInstance().showMessage("Cambio de contraseña Correcto", "",
+            MessageAlerts.MessageType.SUCCESS);
 
 
         }));
